@@ -4,7 +4,7 @@
     <div class="section-content section-dashboard-home" data-aos="fade-up">
         <div class="container-fluid">
             <div class="dashboard-heading">
-                <h2 class="dashboard-title">Buku</h2>
+                <h2 class="dashboard-title">Daftar buku yang di pinjam</h2>
                 <p class="dashboard-subtitle">
                     Daftar Buku
                 </p>
@@ -20,25 +20,25 @@
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>TBM</th>
-                                                <th>Kategori</th>
+                                                <th>Nama Peminjam</th>
                                                 <th>Judul</th>
                                                 <th>Penulis</th>
-                                                <th>Stok</th>
-                                                <th>Aksi</th>
+                                                <th>Tanggal Pinjam</th>
+                                                <th>Tanggal Kembali</th>
+                                                {{-- <th>Aksi</th> --}}
                                             </tr>
                                         </thead>
                                         <tbody>
-                                            @forelse ($bukus as $buku)
+                                            @forelse ($peminjamans as $peminjaman)
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $buku->tbm->nama_tbm}}</td>
-                                                    <td>{{ $buku->kategori->nama_kategori }}</td>
-                                                    <td>{{ $buku->judul}}</td>
-                                                    <td>{{ $buku->penulis}}</td>
-                                                    <td>{{ $buku->stok}}</td>
+                                                    <td>{{ $peminjaman->user->name}}</td>
+                                                    <td>{{ $peminjaman->buku->judul}}</td>
+                                                    <td>{{ $peminjaman->buku->penulis}}</td>
+                                                    <td>{{ $peminjaman->tgl_pinjam}}</td>
+                                                    <td>{{ $peminjaman->tgl_kembali}}</td>
                                                     <td>
-                                                        <a href="{{route('peminjaman.create', $buku->id)}}" class="btn btn-info btn-sm"><i class="fa fa-pencil-alt d-inline"></i>Pinjam</a>
+                                                        {{-- <a href="{{route('peminjaman.detail', $peminjaman->id)}}" class="btn btn-info btn-sm"><i class="fa fa-eye d-inline"></i>Detail</a> --}}
                                                         {{-- <form action="{{ route('kategori.destroy', $kategori->id) }}"
                                                             method="POST" class="d-inline">
                                                             @csrf

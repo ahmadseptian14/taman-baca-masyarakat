@@ -4,7 +4,7 @@
     <div class="section-content section-dashboard-home" data-aos="fade-up">
         <div class="container-fluid">
             <div class="dashboard-heading">
-                <h2 class="dashboard-title">Tambah Pengurus</h2>
+                <h2 class="dashboard-title">Tambah Buku</h2>
             </div>
             <div class="dashboard-content">
                 <div class="row">
@@ -20,47 +20,41 @@
                         @endif
                         <div class="card">
                             <div class="card-body">
-                                <form action="{{ route('pengurus.store') }}" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('buku.store') }}" method="POST" enctype="multipart/form-data">
                                     @csrf
                                     <div class="row">
-                                        <input type="text" name="roles" class="form-control" value="PENGURUS" hidden>
+                                        <input type="text" name="tbm_id" class="form-control" value="{{Auth::user()->tbm_id}}" hidden>
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label>TBM</label>
-                                                <select name="tbm_id" id="tbm_id" class="form-control select2">
-                                                    @foreach ($tbms as $tbm)
-                                                        <option value="{{ $tbm->id }}">{{ $tbm->nama_tbm }}</option>
+                                                <label>Kategori</label>
+                                                <select name="kategori_id" id="kategori_id" class="form-control select2">
+                                                    @foreach ($kategoris as $kategori)
+                                                        <option value="{{ $kategori->id }}">{{ $kategori->nama_kategori }}
+                                                        </option>
                                                     @endforeach
                                                 </select>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label>Nama</label>
-                                                <input type="text" name="name" class="form-control" required>
+                                                <label>Judul</label>
+                                                <input type="text" name="judul" class="form-control" required>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label>Email</label>
-                                                <input type="email" name="email" class="form-control" required>
+                                                <label>Penulis</label>
+                                                <input type="text" name="penulis" class="form-control" required>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label>Password</label>
-                                                <input type="password" name="password" class="form-control" required>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-12">
-                                            <div class="form-group mb-2">
-                                                <label>Konfirmasi Password</label>
-                                                <input type="password" name="password_confirmation" class="form-control"
-                                                    required>
+                                                <label>Stok Buku</label>
+                                                <input type="number" name="stok" class="form-control" required>
                                             </div>
                                         </div>
                                     </div>
-                                    <div class="row">
+                                    <div class="row mt-3">
                                         <div class="col text-right">
                                             <button type="submit" class="btn btn-success px-5">
                                                 Simpan
@@ -75,3 +69,11 @@
             </div>
         </div>
     @endsection
+
+    @push('addon-stack')
+        <script>
+            $(document).ready(function() {
+                $('.select2').select2();
+            });
+        </script>
+    @endpush

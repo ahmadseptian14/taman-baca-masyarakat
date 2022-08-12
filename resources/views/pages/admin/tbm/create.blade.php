@@ -23,16 +23,7 @@
                        <form action="{{route('tbm.store')}}" method="POST" enctype="multipart/form-data">
                             @csrf
                             <div class="row">
-                                <div class="col-md-12">
-                                    <div class="form-group">
-                                        <label>Pengurus</label>
-                                        <select name="users_id" id="users_id" class="form-control select2" multiple="multiple">
-                                            @foreach ($penguruss as $pengurus)
-                                            <option value="{{$pengurus->id}}">{{$pengurus->name}}</option>
-                                            @endforeach
-                                        </select>
-                                    </div>
-                                </div>
+                              
                                 <div class="col-md-12">
                                     <div class="form-group">
                                         <label>Nama TBM</label>
@@ -61,3 +52,11 @@
     </div>
 </div>
 @endsection
+
+@push('addon-stack')
+<script>
+    $(document).ready(function() {
+        $('.select2').select2();
+    });
+</script>
+@endpush

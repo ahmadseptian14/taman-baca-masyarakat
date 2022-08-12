@@ -96,6 +96,10 @@ class TbmController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $tbm = Tbm::findOrFail($id);
+
+        $tbm->delete();
+
+        return redirect()->back();
     }
 }

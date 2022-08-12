@@ -18,9 +18,11 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'tbm_id',
         'name',
         'email',
         'password',
+        'roles'
     ];
 
     /**
@@ -47,7 +49,17 @@ class User extends Authenticatable
         return $this->hasMany(Buku::class, 'users_id', 'id');
     }
 
-    public function tbms () {
-        return $this->hasMany(Tbm::class, 'users_id', 'id');
+    // public function tbms () {
+    //     return $this->hasMany(Tbm::class, 'users_id', 'id');
+    // }
+
+    public function tbm() {
+        return $this->belongsTo(Tbm::class, 'users_id', 'id');
+    }
+
+
+    public function peminjamans () {
+        return $this->hasMany(Peminjaman::class, 'users_id', 'id');
     }
 }
+

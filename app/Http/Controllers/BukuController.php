@@ -19,9 +19,37 @@ class BukuController extends Controller
     {   
         // $users_id = Auth::user()->id;
 
-        $bukus = Buku::with(['tbm', 'kategori'])->orderBy('created_at', 'DESC')->get();
+        $bukus = Buku::with(['tbm', 'kategori'])
+                        ->orderBy('created_at', 'DESC')
+                        ->get();
 
         return view('pages.admin.buku.index', [
+            'bukus' => $bukus
+        ]);
+    }
+
+    public function buku_pengurus() {
+        // $buku = Buku::with(['tbm', 'kategori'])
+        $bukus = Buku::with(['tbm', 'kategori'])
+                        ->where('users_id', Auth::user()->id)
+                        ->orderBy('created_at', 'DESC')
+                        ->get();
+
+        return view('pages.pengurus.buku.index', [
+            'bukus' => $bukus
+        ]);
+    }
+
+
+    public function buku_anggota()
+    {   
+        // $users_id = Auth::user()->id;
+
+        $bukus = Buku::with(['tbm', 'kategori'])
+                        ->orderBy('judul', 'ASC')
+                        ->get();
+
+        return view('pages.anggota.buku.index', [
             'bukus' => $bukus
         ]);
     }
@@ -33,11 +61,11 @@ class BukuController extends Controller
      */
     public function create()
     {   
-        $tbms = Tbm::all();
+        // $tbm = Tbm::where('users_id', Auth::user()->id)->get();
         $kategoris = Kategori::all(); 
 
-        return view('pages.anggota.buku.create', [
-            'tbms' => $tbms,
+        return view('pages.pengurus.buku.create', [
+            // 'tbm' => $tbm,
             'kategoris' =>$kategoris
         ]);
     }
@@ -50,7 +78,18 @@ class BukuController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $users_id = Auth::user()->id;
+        // $tbm_id = Tbm::where('users_id', Auth::user()->id)->get();
+
+        $data = $request->all();
+
+        $data['users_id'] = $users_id;
+        // $data['tbm_id'] = $tbm_id;
+        // $data['status_buku'] = 'Tersedia';
+
+        Buku::create($data);
+
+        return redirect()->route('buku.pengurus');
     }
 
     /**

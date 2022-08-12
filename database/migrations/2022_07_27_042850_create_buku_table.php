@@ -20,7 +20,7 @@ class CreateBukuTable extends Migration
             $table->integer('tbm_id');
             $table->string('judul');
             $table->string('penulis');
-            $table->string('status_buku');
+            $table->integer('stok');
             $table->timestamps();
         });
     }

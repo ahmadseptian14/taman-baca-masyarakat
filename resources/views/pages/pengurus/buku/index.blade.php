@@ -4,7 +4,7 @@
     <div class="section-content section-dashboard-home" data-aos="fade-up">
         <div class="container-fluid">
             <div class="dashboard-heading">
-                <h2 class="dashboard-title">Buku</h2>
+                <h2 class="dashboard-title"></h2>
                 <p class="dashboard-subtitle">
                     Daftar Buku
                 </p>
@@ -18,8 +18,9 @@
                                     <table class="table table-hover scroll-horizontal-vertical w-100 table-bordered"
                                         id="table1">
                                         <thead>
-                                            <tr>
+                                            <tr>    
                                                 <th>No</th>
+                                                {{-- <th>Nama Pengurus</th> --}}
                                                 <th>TBM</th>
                                                 <th>Kategori</th>
                                                 <th>Judul</th>
@@ -32,26 +33,26 @@
                                             @forelse ($bukus as $buku)
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $buku->tbm->nama_tbm}}</td>
+                                                    <td>{{ $buku->tbm->nama_tbm }}</td>
                                                     <td>{{ $buku->kategori->nama_kategori }}</td>
                                                     <td>{{ $buku->judul}}</td>
                                                     <td>{{ $buku->penulis}}</td>
                                                     <td>{{ $buku->stok}}</td>
                                                     <td>
-                                                        <a href="{{route('peminjaman.create', $buku->id)}}" class="btn btn-info btn-sm"><i class="fa fa-pencil-alt d-inline"></i>Pinjam</a>
-                                                        {{-- <form action="{{ route('kategori.destroy', $kategori->id) }}"
+                                                        {{-- <a href="{{route('member.edit', $item->id)}}" class="btn btn-info btn-sm"><i class="fa fa-pencil-alt d-block"></i>Edit Data</a> --}}
+                                                        <form action="{{ route('buku.destroy', $buku->id) }}"
                                                             method="POST" class="d-inline">
                                                             @csrf
                                                             @method('delete')
                                                             <button class="btn btn-danger mt-2 btn-sm">
                                                                 <i class="fa fa-trash d-inline">Hapus </i>
                                                             </button>
-                                                        </form> --}}
+                                                        </form>
                                                     </td>
                                                 </tr>
                                             @empty
                                                 <tr>
-                                                    <td colspan="7" class="text-center">Tidak Ada kategori</td>
+                                                    <td colspan="7" class="text-center">Tidak Ada Buku</td>
                                                 </tr>
                                             @endforelse
                                         </tbody>

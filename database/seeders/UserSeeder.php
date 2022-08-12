@@ -16,23 +16,25 @@ class UserSeeder extends Seeder
     public function run()
     {
         $users = [
-            [
-                'name' => 'Ahmad Septian',
-                'email' => 'ahmadseptian@gmail.com',
-                'password' => Hash::make('septian12345'),
+            [   
+                'name' => 'admin',
+                'email' => 'admin@gmail.com',
+                'password' => Hash::make('admin12345'),
                 'roles' => 'ADMIN'
             ],
-            [
-                'name' => 'Ridho Pratama',
-                'email' => 'ridho@gmail.com',
-                'password' => Hash::make('ridho12345'),
+            [   
+                // 'tbm_id' => '1',
+                'name' => 'TBM Cipocok',
+                'email' => 'tbmcipocok@gmail.com',
+                'password' => Hash::make('cipocok12345'),
                 'roles' => 'PENGURUS'
             ],
-            [
-                'name' => 'Ikhsan Alwi',
-                'email' => 'ikhsan@gmail.com',
-                'password' => Hash::make('ikhsan12345'),
-                'roles' => 'ANGGOTA'
+            [   
+                // 'tbm_id' => '2',
+                'name' => 'TBM Ciracas',
+                'email' => 'tbmciracas@gmail.com',
+                'password' => Hash::make('tbmciracas12345'),
+                'roles' => 'PENGURUS'
             ]
         ];
 

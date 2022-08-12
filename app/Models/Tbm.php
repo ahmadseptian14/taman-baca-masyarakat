@@ -10,16 +10,20 @@ class Tbm extends Model
     use HasFactory;
 
     protected $fillable = [
-        'users_id', 'nama_tbm', 'deskripsi'
+         'nama_tbm', 'deskripsi'
     ];
 
     protected $table = 'tbm';
 
-    public function user() {
-        return $this->belongsTo(User::class, 'users_id', 'id');
-    }
+    // public function user() {
+    //     return $this->belongsTo(User::class, 'users_id', 'id');
+    // }
 
     public function books () {
         return $this->hasMany(Buku::class, 'users_id', 'id');
+    }
+
+    public function users () {
+        return $this->hasMany(User::class, 'users_id', 'id');
     }
 }

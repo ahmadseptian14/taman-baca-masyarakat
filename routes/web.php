@@ -8,7 +8,7 @@ use App\Http\Controllers\BukuController;
 use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PengurusController;
 use App\Http\Controllers\DashboardController;
-
+use App\Http\Controllers\PeminjamanController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -24,7 +24,19 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::prefix('admin')->middleware('auth')->group( function () {
+Route::prefix('list-buku')->middleware(['auth', 'anggota'])->group(function () {
+    // Buku
+    Route::get('/', [BukuController::class, 'buku_anggota'])->name('buku.anggota');
+
+    // Peminjaman
+    Route::get('/daftar-pinjam', [PeminjamanController::class, 'index'])->name('peminjaman.index');
+    Route::get('/detail-peminjaman', [PeminjamanController::class, 'detail_peminjaman'])->name('peminjaman.detail');
+    Route::get('/pinjam/{id}', [PeminjamanController::class, 'create'])->name('peminjaman.create');
+    Route::post('/pinjam', [PeminjamanController::class, 'store'])->name('peminjaman.store');
+
+});
+
+Route::prefix('admin')->middleware(['auth', 'admin'])->group( function () {
     Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
 
     // Kategori
@@ -42,15 +54,19 @@ Route::prefix('admin')->middleware('auth')->group( function () {
 
       // Buku
       Route::get('/buku', [BukuController::class, 'index'])->name('buku.index');
+      Route::get('/buku-pengurus', [BukuController::class, 'buku_pengurus'])->name('buku.pengurus');
       Route::get('/tambah/buku', [BukuController::class, 'create'])->name('buku.create');
       Route::post('/tambah-buku', [BukuController::class, 'store'])->name('buku.store');
       Route::delete('/buku/{id}', [BukuController::class, 'destroy'])->name('buku.destroy');
 
-      // Buku
+      // Pengurus
       Route::get('/pengurus', [PengurusController::class, 'index'])->name('pengurus.index');
       Route::get('/tambah-pengurus', [PengurusController::class, 'create'])->name('pengurus.create');
       Route::post('/tambah-pengurus', [PengurusController::class, 'store'])->name('pengurus.store');
       Route::delete('/pengurus/{id}', [PengurusController::class, 'destroy'])->name('pengurus.destroy');
+
+      Route::get('/daftar-pinjam-pengurus', [PeminjamanController::class, 'pengurus'])->name('peminjaman.pengurus');
+
 
 });
 

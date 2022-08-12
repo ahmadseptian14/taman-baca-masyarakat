@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Tbm;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -30,8 +31,13 @@ class PengurusController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {
-        return view('pages.admin.pengurus.create');
+    {   
+        $tbms = Tbm::all();
+
+        return view('pages.admin.pengurus.create', [
+            'tbms' => $tbms
+        ]);
+
     }
 
     /**
@@ -43,26 +49,28 @@ class PengurusController extends Controller
     public function store(Request $request)
     {
         $request->validate([
-            // 'nik' => 'required|string|max:16|unique:users',
+            'tbm_id' => 'required|string',
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|confirmed|min:8',
+            'roles' => 'required|string'
             ]);
-    
+            
             $user = $request->all();
             
-            $roles = 'PENGURUS';
+            // $roles = 'PENGURUS';
 
             $user = User::create([
+            'tbm_id' => $request->tbm_id,
             'name' => $request->name,
             'email' => $request->email,
-            'roles' => $roles,
+            'roles' => $request->roles,
             'password' => Hash::make($request->password),
             
             ]);
             
             Alert::success('Berhasil', 'Pengurus baru berhasil ditambahkan');
-            return redirect()->route('petugas.index');
+            return redirect()->route('pengurus.index');
     }
 
     /**

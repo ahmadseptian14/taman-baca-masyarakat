@@ -15,7 +15,7 @@ class CreateTbmTable extends Migration
     {
         Schema::create('tbm', function (Blueprint $table) {
             $table->id();
-            $table->integer('users_id');
+            // $table->integer('users_id');
             $table->string('nama_tbm');
             $table->string('deskripsi');
             $table->timestamps();

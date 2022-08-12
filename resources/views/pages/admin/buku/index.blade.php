@@ -25,7 +25,7 @@
                                                 <th>Kategori</th>
                                                 <th>Judul</th>
                                                 <th>Penulis</th>
-                                                <th>Status Buku</th>
+                                                <th>Stok</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -36,8 +36,8 @@
                                                     <td>{{ $buku->tbm->nama_tbm }}</td>
                                                     <td>{{ $buku->kategori->nama_kategori }}</td>
                                                     <td>{{ $buku->judul}}</td>
-                                                    <td>{{ $buku->Penulis}}</td>
-                                                    <td>{{ $buku->status_buku}}</td>
+                                                    <td>{{ $buku->penulis}}</td>
+                                                    <td>{{ $buku->stok}}</td>
                                                     <td>
                                                         {{-- <a href="{{route('member.edit', $item->id)}}" class="btn btn-info btn-sm"><i class="fa fa-pencil-alt d-block"></i>Edit Data</a> --}}
                                                         <form action="{{ route('buku.destroy', $buku->id) }}"
