@@ -371,7 +371,7 @@
                         </p>
                     </div>
                     <div>
-                        <a href="{{route('dashboard.index')}}" class="btn btn-blue px-5 py-3 shadow">
+                        <a href="{{route('buku.anggota')}}" class="btn btn-blue px-5 py-3 shadow">
                             Cari Buku
                         </a>
                     </div>

@@ -17,9 +17,10 @@ class CreatePeminjamanTable extends Migration
             $table->id();
             $table->integer('users_id');
             $table->integer('buku_id');
+            $table->integer('buku_pengurus');
             $table->date('tgl_pinjam');
             $table->date('tgl_kembali');
-            // $table->integer('jumlah_pinjam');
+            $table->string('status_peminjaman')->default('Belum di Verifikasi');
             $table->timestamps();
         });
     }

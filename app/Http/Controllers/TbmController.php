@@ -23,6 +23,18 @@ class TbmController extends Controller
         ]);
     }
 
+    public function tbm_anggota()
+    {
+        $tbms = Tbm::all();
+
+        return view('pages.anggota.tbm.index', [
+            'tbms' => $tbms
+        ]);
+    }
+
+
+
+
     /**
      * Show the form for creating a new resource.
      *

@@ -59,6 +59,11 @@
             @endif
           
             @if (Auth::user()->roles == 'PENGURUS')
+            <a class="nav-link" href="{{route('dashboard.index')}}">
+                <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
+                Dashboard
+            </a>
+
             <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                 Buku
@@ -86,7 +91,7 @@
 
 
             @if (Auth::user()->roles == 'ANGGOTA')
-            <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
+            {{-- <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
                 <div class="sb-nav-link-icon"><i class="fas fa-columns"></i></div>
                 Buku
                 <div class="sb-sidenav-collapse-arrow"><i class="fas fa-angle-down"></i></div>
@@ -96,7 +101,25 @@
                     <a class="nav-link" href="{{route('buku.anggota')}}">Lihat Buku</a>
                     <a class="nav-link" href="{{route('peminjaman.index')}}">Daftar Pinjam</a>
                 </nav>
-            </div>
+            </div> --}}
+           
+
+            <li class="nav-item active">
+                <a class="nav-link" href="{{route('peminjaman.index')}}">
+                    <i class="fas fa-fw fa-list" style="margin-right: 5px"></i>
+                    <span>Daftar Pinjam</span></a>
+            </li>
+
+            <li class="nav-item active">
+                <a class="nav-link" href="{{route('buku.anggota')}}">
+                    <i class="fas fa-fw fa-book" style="margin-right: 5px"></i>
+                    <span>Lihat Buku</span></a>
+            </li>
+            <li class="nav-item active">
+                <a class="nav-link" href="{{route('tbm.anggota')}}">
+                    <i class="fas fa-fw fa-book" style="margin-right: 5px"></i>
+                    <span>Lihat TBM</span></a>
+            </li>
             @endif
             
 

@@ -28,11 +28,17 @@ Route::prefix('list-buku')->middleware(['auth', 'anggota'])->group(function () {
     // Buku
     Route::get('/', [BukuController::class, 'buku_anggota'])->name('buku.anggota');
 
+    // Tbm
+    Route::get('/tbm-anggota', [TbmController::class, 'tbm_anggota'])->name('tbm.anggota');
+
+
     // Peminjaman
     Route::get('/daftar-pinjam', [PeminjamanController::class, 'index'])->name('peminjaman.index');
     Route::get('/detail-peminjaman', [PeminjamanController::class, 'detail_peminjaman'])->name('peminjaman.detail');
     Route::get('/pinjam/{id}', [PeminjamanController::class, 'create'])->name('peminjaman.create');
     Route::post('/pinjam', [PeminjamanController::class, 'store'])->name('peminjaman.store');
+    Route::delete('/pinjam/{id}', [PeminjamanController::class, 'destroy'])->name('peminjaman.destroy');
+
 
 });
 
@@ -45,7 +51,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group( function () {
     Route::post('/tambah-kategori', [KategoriController::class, 'store'])->name('kategori.store');
     Route::delete('/kategori/{id}', [KategoriController::class, 'destroy'])->name('kategori.destroy');
 
-    // TBM
+     // TBM
      Route::get('/tbm', [TbmController::class, 'index'])->name('tbm.index');
      Route::get('/tambah-tbm', [TbmController::class, 'create'])->name('tbm.create');
      Route::post('/tambah-tbm', [TbmController::class, 'store'])->name('tbm.store');
@@ -65,7 +71,12 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group( function () {
       Route::post('/tambah-pengurus', [PengurusController::class, 'store'])->name('pengurus.store');
       Route::delete('/pengurus/{id}', [PengurusController::class, 'destroy'])->name('pengurus.destroy');
 
+      //   Peminjaman
       Route::get('/daftar-pinjam-pengurus', [PeminjamanController::class, 'pengurus'])->name('peminjaman.pengurus');
+      Route::post('/verifikasi', [PeminjamanController::class, 'verifikasi'])->name('peminjaman.verifikasi');
+      Route::get('/peminjaman-edit/{id}', [PeminjamanController::class, 'edit'])->name('peminjaman.edit');
+      Route::put('/update-peminjaman/{id}', [PeminjamanController::class, 'update'])->name('peminjaman.update');
+      Route::delete('/pinjam/{id}', [PeminjamanController::class, 'retur_buku'])->name('peminjaman.retur');
 
 
 });

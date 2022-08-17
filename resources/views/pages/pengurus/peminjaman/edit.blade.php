@@ -4,7 +4,7 @@
     <div class="section-content section-dashboard-home" data-aos="fade-up">
         <div class="container-fluid">
             <div class="dashboard-heading">
-                <h2 class="dashboard-title">Pinjam Buku</h2>
+                <h2 class="dashboard-title">Upadate Tanggal Peminjaman</h2>
             </div>
             <div class="dashboard-content">
                 <div class="row">
@@ -20,19 +20,15 @@
                         @endif
                         <div class="card">
                             <div class="card-body">
-                                <form action="{{ route('peminjaman.store') }}" method="POST" enctype="multipart/form-data">
+                                <form action="{{ route('peminjaman.update', $peminjaman->id) }}" method="POST" enctype="multipart/form-data">
                                     @csrf
+                                    @method('put')
                                     <div class="row">
-                                        <input type="text" name="users_id" class="form-control" value="{{Auth::user()->id}}" hidden>
-                                        <input type="text" name="buku_id" class="form-control" value="{{$buku->id}}" hidden>
-                                        <input type="text" name="buku_pengurus" class="form-control" value="{{$buku->users_id}}" hidden>
-
                                         <div class="col-md-12">
                                             <div class="form-group">
-                                                <label>Tanggal Pinjam</label>
-                                                <input type="date" name="tgl_pinjam" class="form-control" required>
+                                                <label>Tanggal Kembali</label>
+                                                <input type="date" name="tgl_kembali" class="form-control" required value="{{$peminjaman->tgl_kembali}}">
                                             </div>
-                                        </div>
                                         </div>
                                     </div>
                                     <div class="row mt-3">

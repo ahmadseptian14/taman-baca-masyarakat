@@ -31,7 +31,7 @@ class PeminjamanController extends Controller
 
     public function pengurus()
     {
-        $peminjamans = Peminjaman::with(['user', 'buku'])->orderBy('created_at', 'DESC')->get();
+        $peminjamans = Peminjaman::with(['user', 'buku'])->where('buku_pengurus', Auth::user()->id)->orderBy('created_at', 'DESC')->get();
 
         return view('pages.pengurus.peminjaman.index', [
             'peminjamans' => $peminjamans
@@ -77,6 +77,18 @@ class PeminjamanController extends Controller
 
         Alert::success('Informasi Pesan!', 'Peminjaman Buku Berhasil ditambahkan');
 
+        return redirect()->route('peminjaman.index');
+    }
+
+
+    public function verifikasi()
+    {
+        DB::table('peminjaman')->where('status_peminjaman', 'Belum di Verifikasi')->update([
+            'status_peminjaman'=> 'Buku sudah bisa di ambil',
+        ]);
+
+        Alert::success('Berhasil', 'Update status peminjaman berhasil');
+
         return redirect()->back();
     }
 
@@ -105,7 +117,11 @@ class PeminjamanController extends Controller
      */
     public function edit($id)
     {
-        //
+        $peminjaman = Peminjaman::findOrFail($id);
+
+        return view('pages.pengurus.peminjaman.edit', [
+            'peminjaman' => $peminjaman
+        ]);
     }
 
     /**
@@ -117,7 +133,13 @@ class PeminjamanController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        Peminjaman::findOrFail($id)->update([
+            'tgl_kembali' => request('tgl_kembali')
+        ]);
+
+        Alert::success('Informasi Pesan!', 'Peminjaman Berhasil diupdate');
+
+        return redirect()->route('peminjaman.pengurus');
     }
 
     /**
@@ -128,6 +150,31 @@ class PeminjamanController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $peminjaman = Peminjaman::findOrFail($id);
+
+        $peminjaman->delete();
+
+        Alert::success('Informasi Pesan!', 'Peminjaman berhasil dihapus');
+
+        return redirect()->back();
+        
     }
+
+    public function retur_buku($id)
+    {
+        $data = Peminjaman::findOrFail($id);
+        $sum = Buku::findOrFail($data->buku_id);
+        Buku::where('id', $data->buku_id)->update([
+            'stok' => $sum->stok + 1
+        ]);
+
+        $data->delete();
+
+        Alert::success('Informasi Pesan!', 'Peminjaman Buku berhasil di Kembalikan');
+        
+        return back();
+        
+    }
+
+    
 }

@@ -25,7 +25,8 @@
                                                 <th>Penulis</th>
                                                 <th>Tanggal Pinjam</th>
                                                 <th>Tanggal Kembali</th>
-                                                {{-- <th>Aksi</th> --}}
+                                                <th>Status</th>
+                                                <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -37,16 +38,27 @@
                                                     <td>{{ $peminjaman->buku->penulis}}</td>
                                                     <td>{{ $peminjaman->tgl_pinjam}}</td>
                                                     <td>{{ $peminjaman->tgl_kembali}}</td>
+                                                    <td>{{ $peminjaman->status_peminjaman}}</td>
                                                     <td>
-                                                        {{-- <a href="{{route('peminjaman.detail', $peminjaman->id)}}" class="btn btn-info btn-sm"><i class="fa fa-eye d-inline"></i>Detail</a> --}}
-                                                        {{-- <form action="{{ route('kategori.destroy', $kategori->id) }}"
+                                                        <a href="{{route('peminjaman.edit', $peminjaman->id)}}" class="btn btn-info btn-sm"><i class="fa fa-pencil d-inline" style="margin-right: 5px"></i>Update Peminjaman</a>
+                                                        <form action="{{ route('peminjaman.verifikasi')}}"
+                                                            method="POST" class="d-inline">
+                                                            @csrf
+                                                            <button class="btn btn-success mt-2 btn-sm">
+                                                                <i class="fa fa-check d-inline mr-2"></i>
+                                                                Verifikasi
+                                                            </button>
+                                                        </form>
+
+                                                        <form action="{{ route('peminjaman.retur', $peminjaman->id)}}"
                                                             method="POST" class="d-inline">
                                                             @csrf
                                                             @method('delete')
-                                                            <button class="btn btn-danger mt-2 btn-sm">
-                                                                <i class="fa fa-trash d-inline">Hapus </i>
+                                                            <button class="btn btn-success mt-2 btn-sm">
+                                                                <i class="fa fa-return d-inline mr-2"></i>
+                                                                Kembalikan Buku
                                                             </button>
-                                                        </form> --}}
+                                                        </form>
                                                     </td>
                                                 </tr>
                                             @empty

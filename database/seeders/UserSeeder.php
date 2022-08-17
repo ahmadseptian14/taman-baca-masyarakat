@@ -22,6 +22,7 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('admin12345'),
                 'roles' => 'ADMIN'
             ],
+
             [   
                 // 'tbm_id' => '1',
                 'name' => 'TBM Cipocok',
@@ -29,6 +30,7 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('cipocok12345'),
                 'roles' => 'PENGURUS'
             ],
+
             [   
                 // 'tbm_id' => '2',
                 'name' => 'TBM Ciracas',
@@ -36,6 +38,7 @@ class UserSeeder extends Seeder
                 'password' => Hash::make('tbmciracas12345'),
                 'roles' => 'PENGURUS'
             ]
+            
         ];
 
         DB::table('users')->insert($users);
