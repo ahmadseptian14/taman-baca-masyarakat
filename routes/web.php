@@ -73,6 +73,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group( function () {
 
       //   Peminjaman
       Route::get('/daftar-pinjam-pengurus', [PeminjamanController::class, 'pengurus'])->name('peminjaman.pengurus');
+      Route::get('/riwayat-pinjam', [PeminjamanController::class, 'riwayat'])->name('peminjaman.riwayat');
       Route::post('/verifikasi', [PeminjamanController::class, 'verifikasi'])->name('peminjaman.verifikasi');
       Route::get('/peminjaman-edit/{id}', [PeminjamanController::class, 'edit'])->name('peminjaman.edit');
       Route::put('/update-peminjaman/{id}', [PeminjamanController::class, 'update'])->name('peminjaman.update');

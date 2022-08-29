@@ -84,7 +84,7 @@
             <div class="collapse" id="collapseLayouts" aria-labelledby="headingOne" data-bs-parent="#sidenavAccordion">
                 <nav class="sb-sidenav-menu-nested nav">
                     <a class="nav-link" href="{{route('peminjaman.pengurus')}}">Lihat Peminjam</a>
-                    {{-- <a class="nav-link" href="{{route('buku.create')}}">Tambah Buku</a> --}}
+                    <a class="nav-link" href="{{route('peminjaman.riwayat')}}">Riwayat Peminjaman</a>
                 </nav>
             </div>
             @endif

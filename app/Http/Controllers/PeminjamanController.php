@@ -31,9 +31,27 @@ class PeminjamanController extends Controller
 
     public function pengurus()
     {
-        $peminjamans = Peminjaman::with(['user', 'buku'])->where('buku_pengurus', Auth::user()->id)->orderBy('created_at', 'DESC')->get();
+        $peminjamans = Peminjaman::with(['user', 'buku'])
+                        ->where('buku_pengurus', Auth::user()->id)
+                        ->whereIn('status_peminjaman', ['Belum di Verifikasi', 'Buku sudah bisa di ambil'])
+                        ->orderBy('created_at', 'DESC')
+                        ->get();
 
         return view('pages.pengurus.peminjaman.index', [
+            'peminjamans' => $peminjamans
+        ]);
+    }
+
+
+    public function riwayat()
+    {
+        $peminjamans = Peminjaman::with(['user', 'buku'])
+                        ->where('buku_pengurus', Auth::user()->id)
+                        ->whereIn('status_peminjaman', ['Buku sudah dikembalikan'])
+                        ->orderBy('created_at', 'DESC')
+                        ->get();
+
+        return view('pages.pengurus.peminjaman.riwayat', [
             'peminjamans' => $peminjamans
         ]);
     }
@@ -161,14 +179,16 @@ class PeminjamanController extends Controller
     }
 
     public function retur_buku($id)
-    {
+    {   
+        DB::table('peminjaman')->where('status_peminjaman', 'Buku sudah bisa di ambil')->update([
+            'status_peminjaman'=> 'Buku sudah dikembalikan',
+        ]);
+
         $data = Peminjaman::findOrFail($id);
         $sum = Buku::findOrFail($data->buku_id);
         Buku::where('id', $data->buku_id)->update([
             'stok' => $sum->stok + 1
         ]);
-
-        $data->delete();
 
         Alert::success('Informasi Pesan!', 'Peminjaman Buku berhasil di Kembalikan');
         
