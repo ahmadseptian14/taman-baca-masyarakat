@@ -84,8 +84,7 @@ class BukuController extends Controller
         $data = $request->all();
 
         $data['users_id'] = $users_id;
-        // $data['tbm_id'] = $tbm_id;
-        // $data['status_buku'] = 'Tersedia';
+        $data['foto'] = $request->file('foto')->store('assets/buku', 'public');
 
         Buku::create($data);
 

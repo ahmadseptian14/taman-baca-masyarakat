@@ -21,6 +21,7 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Judul</th>
+                                                <th>Foto</th>
                                                 <th>Penulis</th>
                                                 <th>Tanggal Pinjam</th>
                                                 <th>Tanggal Kembali</th>
@@ -33,6 +34,11 @@
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $peminjaman->buku->judul}}</td>
+                                                    <td>
+                                                        <a href="{{asset('storage/'. $peminjaman->buku->foto)}}" target="_blank">
+                                                            <img src="{{Storage::url($peminjaman->buku->foto)}}" width="50" height="50" class="rounded-square">
+                                                        </a>
+                                                    </td>
                                                     <td>{{ $peminjaman->buku->penulis}}</td>
                                                     <td>{{ $peminjaman->tgl_pinjam}}</td>
                                                     <td>{{ $peminjaman->tgl_kembali}}</td>

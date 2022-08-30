@@ -20,7 +20,8 @@ class UserSeeder extends Seeder
                 'name' => 'admin',
                 'email' => 'admin@gmail.com',
                 'password' => Hash::make('admin12345'),
-                'roles' => 'ADMIN'
+                'roles' => 'ADMIN',
+                'no_hp' => '081201271'
             ],
 
             [   
@@ -28,15 +29,17 @@ class UserSeeder extends Seeder
                 'name' => 'TBM Cipocok',
                 'email' => 'tbmcipocok@gmail.com',
                 'password' => Hash::make('cipocok12345'),
-                'roles' => 'PENGURUS'
+                'roles' => 'PENGURUS',
+                'no_hp' => '0897212517'
             ],
 
             [   
                 // 'tbm_id' => '2',
                 'name' => 'TBM Ciracas',
                 'email' => 'tbmciracas@gmail.com',
-                'password' => Hash::make('tbmciracas12345'),
-                'roles' => 'PENGURUS'
+                'password' => Hash::make('iracas12345'),
+                'roles' => 'PENGURUS',
+                'no_hp' => '08129271271'
             ]
             
         ];

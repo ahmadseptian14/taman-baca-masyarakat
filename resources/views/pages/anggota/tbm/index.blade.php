@@ -22,6 +22,7 @@
                                                 <th>No</th>
                                                 <th>Nama</th>
                                                 <th>Keterangan</th>
+                                                <th>No.Telepon</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -30,6 +31,7 @@
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $tbm->nama_tbm }}</td>
                                                     <td>{{ $tbm->deskripsi}}</td>
+                                                    <td>{{ $tbm->no_hp}}</td>
                                                 </tr>
                                             @empty
                                                 <tr>

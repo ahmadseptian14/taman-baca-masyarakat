@@ -36,6 +36,7 @@ Route::prefix('list-buku')->middleware(['auth', 'anggota'])->group(function () {
     Route::get('/daftar-pinjam', [PeminjamanController::class, 'index'])->name('peminjaman.index');
     Route::get('/detail-peminjaman', [PeminjamanController::class, 'detail_peminjaman'])->name('peminjaman.detail');
     Route::get('/pinjam/{id}', [PeminjamanController::class, 'create'])->name('peminjaman.create');
+    Route::get('/pay', [PeminjamanController::class, 'pay'])->name('peminjaman.pay');
     Route::post('/pinjam', [PeminjamanController::class, 'store'])->name('peminjaman.store');
     Route::delete('/pinjam/{id}', [PeminjamanController::class, 'destroy'])->name('peminjaman.destroy');
 
@@ -74,7 +75,7 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group( function () {
       //   Peminjaman
       Route::get('/daftar-pinjam-pengurus', [PeminjamanController::class, 'pengurus'])->name('peminjaman.pengurus');
       Route::get('/riwayat-pinjam', [PeminjamanController::class, 'riwayat'])->name('peminjaman.riwayat');
-      Route::post('/verifikasi', [PeminjamanController::class, 'verifikasi'])->name('peminjaman.verifikasi');
+      Route::post('/verifikasi/{id}', [PeminjamanController::class, 'verifikasi'])->name('peminjaman.verifikasi');
       Route::get('/peminjaman-edit/{id}', [PeminjamanController::class, 'edit'])->name('peminjaman.edit');
       Route::put('/update-peminjaman/{id}', [PeminjamanController::class, 'update'])->name('peminjaman.update');
       Route::delete('/pinjam/{id}', [PeminjamanController::class, 'retur_buku'])->name('peminjaman.retur');

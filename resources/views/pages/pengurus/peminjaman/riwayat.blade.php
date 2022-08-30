@@ -26,7 +26,6 @@
                                                 <th>Tanggal Pinjam</th>
                                                 <th>Tanggal Kembali</th>
                                                 <th>Status</th>
-                                                {{-- <th>Aksi</th> --}}
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -63,7 +62,7 @@
                                                 </tr>
                                             @empty
                                                 <tr>
-                                                    <td colspan="7" class="text-center">Tidak Ada kategori</td>
+                                                    <td colspan="7" class="text-center">Tidak Ada Riwayat Peminjaman</td>
                                                 </tr>
                                             @endforelse
                                         </tbody>

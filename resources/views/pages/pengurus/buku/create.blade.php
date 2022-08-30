@@ -43,14 +43,32 @@
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
+                                                <label>Foto</label>
+                                                <input type="file" name="foto" class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
                                                 <label>Penulis</label>
                                                 <input type="text" name="penulis" class="form-control" required>
                                             </div>
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
+                                                <label>Penerbit</label>
+                                                <input type="text" name="penerbit" class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
+                                                <label>Nomor ISBN</label>
+                                                <input type="text" name="isbn" class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
                                                 <label>Stok Buku</label>
-                                                <input type="number" name="stok" class="form-control" required>
+                                                <input type="number" name="stok_tersedia" class="form-control" required>
                                             </div>
                                         </div>
                                     </div>

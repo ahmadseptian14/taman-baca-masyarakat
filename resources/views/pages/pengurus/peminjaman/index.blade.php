@@ -41,7 +41,8 @@
                                                     <td>{{ $peminjaman->status_peminjaman}}</td>
                                                     <td>
                                                         <a href="{{route('peminjaman.edit', $peminjaman->id)}}" class="btn btn-info btn-sm"><i class="fa fa-pencil d-inline" style="margin-right: 5px"></i>Update Peminjaman</a>
-                                                        <form action="{{ route('peminjaman.verifikasi')}}"
+
+                                                        <form action="{{ route('peminjaman.verifikasi', $peminjaman->id)}}"
                                                             method="POST" class="d-inline">
                                                             @csrf
                                                             <button class="btn btn-success mt-2 btn-sm">
@@ -63,7 +64,7 @@
                                                 </tr>
                                             @empty
                                                 <tr>
-                                                    <td colspan="7" class="text-center">Tidak Ada kategori</td>
+                                                    <td colspan="7" class="text-center">Tidak Ada Peminjaman</td>
                                                 </tr>
                                             @endforelse
                                         </tbody>

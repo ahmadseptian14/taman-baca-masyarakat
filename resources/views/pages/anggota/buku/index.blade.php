@@ -1,5 +1,12 @@
 @extends('layouts.anggota')
 
+@push('addon-styles')
+    <style>
+        .disable{
+            pointer-events: none;
+        }
+    </style>
+@endpush
 @section('content')
     <div class="section-content section-dashboard-home" data-aos="fade-up">
         <div class="container-fluid">
@@ -23,8 +30,12 @@
                                                 <th>TBM</th>
                                                 <th>Kategori</th>
                                                 <th>Judul</th>
+                                                <th>Foto</th>
                                                 <th>Penulis</th>
-                                                <th>Stok</th>
+                                                <th>Penerbit</th>
+                                                <th>Nomor ISBN</th>
+                                                <th>Stok Tersedia</th>
+                                                <th>Stok yang dipinjam</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -35,19 +46,32 @@
                                                     <td>{{ $buku->tbm->nama_tbm}}</td>
                                                     <td>{{ $buku->kategori->nama_kategori }}</td>
                                                     <td>{{ $buku->judul}}</td>
-                                                    <td>{{ $buku->penulis}}</td>
-                                                    <td>{{ $buku->stok}}</td>
                                                     <td>
-                                                        <a href="{{route('peminjaman.create', $buku->id)}}" class="btn btn-info btn-sm"><i class="fa fa-pencil-alt d-inline"></i>Pinjam</a>
-                                                        {{-- <form action="{{ route('kategori.destroy', $kategori->id) }}"
-                                                            method="POST" class="d-inline">
-                                                            @csrf
-                                                            @method('delete')
-                                                            <button class="btn btn-danger mt-2 btn-sm">
-                                                                <i class="fa fa-trash d-inline">Hapus </i>
-                                                            </button>
-                                                        </form> --}}
+                                                        <a href="{{asset('storage/'. $buku->foto)}}" target="_blank">
+                                                            <img src="{{Storage::url($buku->foto)}}" width="50" height="50" class="rounded-square">
+                                                        </a>
                                                     </td>
+                                                    <td>{{ $buku->penulis}}</td>
+                                                    <td>{{ $buku->penerbit}}</td>
+                                                    <td>{{ $buku->isbn}}</td>
+                                                    <td>{{ $buku->stok_tersedia}}</td>
+                                                    @if (empty($buku->stok_pinjam))
+                                                        <td>Belum ada yang pinjam</td>
+                                                    @else
+                                                        <td>{{ $buku->stok_pinjam}}</td>
+                                                    @endif
+                                                    @if ($buku->stok_tersedia == 0)
+                                                    <td>
+                                                        <a href="{{route('peminjaman.create', $buku->id)}}" class="btn btn-secondary btn-sm disable"><i class="fa fa-pencil-alt d-inline"></i>Pinjam</a>
+                                                        
+                                                    </td>
+                                                    @else
+                                                         <td>
+                                                        <a href="{{route('peminjaman.create', $buku->id)}}" class="btn btn-info btn-sm"><i class="fa fa-pencil-alt d-inline"></i>Pinjam</a>
+                                                        
+                                                    </td>
+                                                    @endif
+                                                   
                                                 </tr>
                                             @empty
                                                 <tr>

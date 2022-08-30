@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 // use App\Models\Peminjaman;
 
+use Midtrans\Snap;
 use App\Models\Buku;
+use Midtrans\Config;
 use App\Models\Peminjaman;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
@@ -70,6 +72,38 @@ class PeminjamanController extends Controller
         ]);
     }
 
+
+    public function pay()
+    {
+        // Set your Merchant Server Key
+        Config::$serverKey = 'SB-Mid-server-GZM6z4C6EIUf-kEaRT_ATI-C';
+        // Set to Development/Sandbox Environment (default). Set to true for Production Environment (accept real transaction).
+        Config::$isProduction = false;
+        // Set sanitization on (default)
+        Config::$isSanitized = true;
+        // Set 3DS transaction for credit card to true
+        Config::$is3ds = true;
+ 
+        $params = array(
+            'transaction_details' => array(
+                'order_id' => rand(),
+                'gross_amount' => 1000,
+            ),
+            'customer_details' => array(
+                'first_name' => 'Ridho',
+                'last_name' => 'Pratama',
+                'email' => 'ridhopratama@example.com',
+                'phone' => '08111222333',
+            ),
+        );
+ 
+        $snapToken = Snap::getSnapToken($params);
+
+        return view('pages.anggota.peminjaman.pay', [
+            'snapToken' => $snapToken
+        ]);
+    }
+
     /**
      * Store a newly created resource in storage.
      *
@@ -81,7 +115,8 @@ class PeminjamanController extends Controller
         $buku = Buku::findOrFail($request->buku_id);
 
         Buku::where('id', $request->buku_id)->update([
-            'stok' => $buku->stok - 1
+            'stok_tersedia' => $buku->stok_tersedia - 1,
+            'stok_pinjam' => $buku->stok_pinjam + 1
         ]);
         
         $users_id = Auth::user()->id;
@@ -95,13 +130,14 @@ class PeminjamanController extends Controller
 
         Alert::success('Informasi Pesan!', 'Peminjaman Buku Berhasil ditambahkan');
 
-        return redirect()->route('peminjaman.index');
+        return redirect()->route('peminjaman.pay');
     }
 
 
-    public function verifikasi()
+    public function verifikasi($id)
     {
-        DB::table('peminjaman')->where('status_peminjaman', 'Belum di Verifikasi')->update([
+
+        Peminjaman::findOrFail($id)->update([
             'status_peminjaman'=> 'Buku sudah bisa di ambil',
         ]);
 

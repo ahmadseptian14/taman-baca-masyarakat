@@ -7,6 +7,7 @@
         <meta name="description" content="" />
         <meta name="author" content="" />
         <title>Kadigi</title>
+        @stack('addon-styles')
         @include('includes.anggota.styles')
     </head>
     <body class="sb-nav-fixed">

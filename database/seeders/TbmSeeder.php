@@ -17,11 +17,13 @@ class TbmSeeder extends Seeder
         $tbms = [
             [   
                 'nama_tbm' => 'TBM Cipocok',
-                'deskripsi' => 'Terletak di cipocok jaya'
+                'deskripsi' => 'Terletak di cipocok jaya',
+                'no_hp' => '0821821278'
             ],
             [   
                 'nama_tbm' => 'TBM Ciracas',
-                'deskripsi' => 'Terletak di ciracas jaya'
+                'deskripsi' => 'Terletak di ciracas jaya',
+                'no_hp' => '0892126172'
             ],
         ];
 

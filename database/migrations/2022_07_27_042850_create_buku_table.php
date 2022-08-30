@@ -19,8 +19,12 @@ class CreateBukuTable extends Migration
             $table->integer('kategori_id');
             $table->integer('tbm_id');
             $table->string('judul');
+            $table->string('foto');
             $table->string('penulis');
-            $table->integer('stok');
+            $table->string('penerbit');
+            $table->bigInteger('isbn');
+            $table->integer('stok_tersedia');
+            $table->integer('stok_pinjam')->nullable();
             $table->timestamps();
         });
     }

@@ -36,6 +36,12 @@
                                         <input type="text" name="deskripsi" class="form-control" required>
                                     </div>
                                 </div>
+                                <div class="col-md-12">
+                                    <div class="form-group">
+                                        <label>No.Telepon</label>
+                                        <input type="text" name="no_hp" class="form-control" required>
+                                    </div>
+                                </div>
                             </div>
                             <div class="row mt-3">
                                 <div class="col text-right">

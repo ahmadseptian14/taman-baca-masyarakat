@@ -10,7 +10,7 @@ class Tbm extends Model
     use HasFactory;
 
     protected $fillable = [
-         'nama_tbm', 'deskripsi'
+         'nama_tbm', 'deskripsi', 'no_hp'
     ];
 
     protected $table = 'tbm';

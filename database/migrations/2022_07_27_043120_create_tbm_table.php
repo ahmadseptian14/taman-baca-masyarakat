@@ -18,6 +18,7 @@ class CreateTbmTable extends Migration
             // $table->integer('users_id');
             $table->string('nama_tbm');
             $table->string('deskripsi');
+            $table->bigInteger('no_hp');
             $table->timestamps();
         });
     }

@@ -20,12 +20,15 @@
                                         <thead>
                                             <tr>    
                                                 <th>No</th>
-                                                {{-- <th>Nama Pengurus</th> --}}
                                                 <th>TBM</th>
                                                 <th>Kategori</th>
                                                 <th>Judul</th>
+                                                <th>Foto</th>
                                                 <th>Penulis</th>
-                                                <th>Stok</th>
+                                                <th>Penerbit</th>
+                                                <th>Nomor ISBN</th>
+                                                <th>Stok Tersedia</th>
+                                                <th>Stok Pinjam</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -36,8 +39,17 @@
                                                     <td>{{ $buku->tbm->nama_tbm }}</td>
                                                     <td>{{ $buku->kategori->nama_kategori }}</td>
                                                     <td>{{ $buku->judul}}</td>
+                                                    <td>
+                                                        <a href="{{asset('storage/'. $buku->foto)}}" target="_blank">
+                                                            <img src="{{Storage::url($buku->foto)}}" width="50" height="50" class="rounded-square">
+                                                        </a>
+                                                    </td>
                                                     <td>{{ $buku->penulis}}</td>
-                                                    <td>{{ $buku->stok}}</td>
+                                                    <td>{{ $buku->penerbit}}</td>
+                                                    <td>{{ $buku->isbn}}</td>
+                                                    <td>{{ $buku->stok_tersedia}}</td>
+                                                    <td>{{ $buku->stok_pinjam}}</td>
+
                                                     <td>
                                                         {{-- <a href="{{route('member.edit', $item->id)}}" class="btn btn-info btn-sm"><i class="fa fa-pencil-alt d-block"></i>Edit Data</a> --}}
                                                         <form action="{{ route('buku.destroy', $buku->id) }}"
