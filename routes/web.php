@@ -9,6 +9,8 @@ use App\Http\Controllers\KategoriController;
 use App\Http\Controllers\PengurusController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\PeminjamanController;
+use App\Http\Controllers\UserController;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -23,6 +25,10 @@ use App\Http\Controllers\PeminjamanController;
 Route::get('/', function () {
     return view('welcome');
 });
+
+Route::get('/edit/password', [UserController::class, 'edit'])->middleware(['auth'])->name('edit.password');
+Route::put('/edit/password', [UserController::class, 'update'])->middleware(['auth']);
+
 
 Route::prefix('list-buku')->middleware(['auth', 'anggota'])->group(function () {
     // Buku
@@ -39,6 +45,7 @@ Route::prefix('list-buku')->middleware(['auth', 'anggota'])->group(function () {
     Route::get('/pay', [PeminjamanController::class, 'pay'])->name('peminjaman.pay');
     Route::post('/pinjam', [PeminjamanController::class, 'store'])->name('peminjaman.store');
     Route::delete('/pinjam/{id}', [PeminjamanController::class, 'destroy'])->name('peminjaman.destroy');
+    Route::get('/riwayat-pinjam_anggota', [PeminjamanController::class, 'riwayat_anggota'])->name('peminjaman.riwayat_anggota');
 
 
 });
@@ -79,7 +86,6 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group( function () {
       Route::get('/peminjaman-edit/{id}', [PeminjamanController::class, 'edit'])->name('peminjaman.edit');
       Route::put('/update-peminjaman/{id}', [PeminjamanController::class, 'update'])->name('peminjaman.update');
       Route::delete('/pinjam/{id}', [PeminjamanController::class, 'retur_buku'])->name('peminjaman.retur');
-
 
 });
 

@@ -24,7 +24,11 @@ class PeminjamanController extends Controller
      */
     public function index()
     {   
-        $peminjamans = Peminjaman::with(['user', 'buku'])->orderBy('created_at', 'DESC')->get();
+        $peminjamans = Peminjaman::with(['user', 'buku'])
+                        ->where('users_id', Auth::user()->id)
+                        ->whereIn('status_peminjaman', ['Belum di Verifikasi', 'Buku sudah bisa di ambil'])
+                        ->orderBy('created_at', 'DESC')
+                        ->get();
 
         return view('pages.anggota.peminjaman.index', [
             'peminjamans' => $peminjamans
@@ -54,6 +58,19 @@ class PeminjamanController extends Controller
                         ->get();
 
         return view('pages.pengurus.peminjaman.riwayat', [
+            'peminjamans' => $peminjamans
+        ]);
+    }
+
+    public function riwayat_anggota()
+    {
+        $peminjamans = Peminjaman::with(['user', 'buku'])
+                        ->where('users_id', Auth::user()->id)
+                        ->whereIn('status_peminjaman', ['Buku sudah dikembalikan'])
+                        ->orderBy('created_at', 'DESC')
+                        ->get();
+
+        return view('pages.anggota.peminjaman.riwayat', [
             'peminjamans' => $peminjamans
         ]);
     }
@@ -216,14 +233,16 @@ class PeminjamanController extends Controller
 
     public function retur_buku($id)
     {   
-        DB::table('peminjaman')->where('status_peminjaman', 'Buku sudah bisa di ambil')->update([
+        Peminjaman::findOrFail($id)->where('status_peminjaman', 'Buku sudah bisa di ambil')->update([
             'status_peminjaman'=> 'Buku sudah dikembalikan',
         ]);
 
         $data = Peminjaman::findOrFail($id);
         $sum = Buku::findOrFail($data->buku_id);
         Buku::where('id', $data->buku_id)->update([
-            'stok' => $sum->stok + 1
+            'stok_tersedia' => $sum->stok_tersedia + 1,
+            'stok_pinjam' => $sum->stok_pinjam - 1,
+
         ]);
 
         Alert::success('Informasi Pesan!', 'Peminjaman Buku berhasil di Kembalikan');

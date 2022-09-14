@@ -43,8 +43,7 @@
                                                     <td>{{ $peminjaman->tgl_pinjam}}</td>
                                                     <td>{{ $peminjaman->tgl_kembali}}</td>
                                                     <td>{{ $peminjaman->status_peminjaman}}</td>
-                                                    <td>
-                                                        {{-- <a href="{{route('peminjaman.detail', $peminjaman->id)}}" class="btn btn-info btn-sm"><i class="fa fa-eye d-inline"></i>Detail</a> --}}
+                                                    {{-- <td>
                                                         <form action="{{ route('peminjaman.destroy', $peminjaman->id)}}"
                                                             method="POST" class="d-inline">
                                                             @csrf
@@ -53,7 +52,7 @@
                                                                 <i class="fa fa-trash d-inline">Hapus </i>
                                                             </button>
                                                         </form>
-                                                    </td>
+                                                    </td> --}}
                                                 </tr>
                                             @empty
                                                 <tr>

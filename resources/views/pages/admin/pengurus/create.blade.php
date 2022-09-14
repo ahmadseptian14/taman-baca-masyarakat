@@ -48,6 +48,12 @@
                                         </div>
                                         <div class="col-md-12">
                                             <div class="form-group">
+                                                <label>No Telepon</label>
+                                                <input type="number" name="no_hp" class="form-control" required>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-12">
+                                            <div class="form-group">
                                                 <label>Password</label>
                                                 <input type="password" name="password" class="form-control" required>
                                             </div>

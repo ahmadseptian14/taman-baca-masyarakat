@@ -19,6 +19,7 @@
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                 @csrf
                 </form>
+                <li><a href="{{route('edit.password')}}" class="dropdown-item">Ubah Password</a></li>
             </ul>
         </li>
     </ul>

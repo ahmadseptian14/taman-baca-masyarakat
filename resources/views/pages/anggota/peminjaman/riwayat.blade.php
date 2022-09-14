@@ -4,7 +4,7 @@
     <div class="section-content section-dashboard-home" data-aos="fade-up">
         <div class="container-fluid">
             <div class="dashboard-heading">
-                <h2 class="dashboard-title">Daftar buku yang di pinjam</h2>
+                <h2 class="dashboard-title">Riwayat buku yang sudah di dikembalikan</h2>
                 <p class="dashboard-subtitle">
                     Daftar Buku
                 </p>
@@ -26,7 +26,6 @@
                                                 <th>Tanggal Pinjam</th>
                                                 <th>Tanggal Kembali</th>
                                                 <th>Status</th>
-                                                <th>Aksi</th>
                                             </tr>
                                         </thead>
                                         <tbody>
@@ -36,13 +35,12 @@
                                                     <td>{{ $peminjaman->user->name}}</td>
                                                     <td>{{ $peminjaman->buku->judul}}</td>
                                                     <td>{{ $peminjaman->buku->penulis}}</td>
-                                                    <td>{{ $peminjaman->tgl_pinjam->format('d-m-Y - H:i:s')}}</td>
+                                                    <td>{{ $peminjaman->tgl_pinjam}}</td>
                                                     <td>{{ $peminjaman->tgl_kembali}}</td>
                                                     <td>{{ $peminjaman->status_peminjaman}}</td>
-                                                    <td>
+                                                    {{-- <td>
                                                         <a href="{{route('peminjaman.edit', $peminjaman->id)}}" class="btn btn-info btn-sm"><i class="fa fa-pencil d-inline" style="margin-right: 5px"></i>Update Peminjaman</a>
-
-                                                        <form action="{{ route('peminjaman.verifikasi', $peminjaman->id)}}"
+                                                        <form action="{{ route('peminjaman.verifikasi')}}"
                                                             method="POST" class="d-inline">
                                                             @csrf
                                                             <button class="btn btn-success mt-2 btn-sm">
@@ -51,7 +49,6 @@
                                                             </button>
                                                         </form>
 
-                                                        @if ($peminjaman->status_peminjaman == 'Buku sudah bisa di ambil')
                                                         <form action="{{ route('peminjaman.retur', $peminjaman->id)}}"
                                                             method="POST" class="d-inline">
                                                             @csrf
@@ -61,23 +58,11 @@
                                                                 Kembalikan Buku
                                                             </button>
                                                         </form>
-                                                        @else
-                                                        <form action="{{ route('peminjaman.retur', $peminjaman->id)}}"
-                                                            method="POST" class="d-inline">
-                                                            @csrf
-                                                            @method('delete')
-                                                            <button class="btn btn-success mt-2 btn-sm" disabled>
-                                                                <i class="fa fa-return d-inline mr-2"></i>
-                                                                Kembalikan Buku
-                                                            </button>
-                                                        </form>
-                                                        @endif
-                                                        
-                                                    </td>
+                                                    </td> --}}
                                                 </tr>
                                             @empty
                                                 <tr>
-                                                    <td colspan="7" class="text-center">Tidak Ada Peminjaman</td>
+                                                    <td colspan="7" class="text-center">Tidak Ada Riwayat Peminjaman</td>
                                                 </tr>
                                             @endforelse
                                         </tbody>

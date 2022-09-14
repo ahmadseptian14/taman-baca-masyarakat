@@ -53,7 +53,8 @@ class PengurusController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|confirmed|min:8',
-            'roles' => 'required|string'
+            'roles' => 'required|string',
+            'no_hp' => 'required'
             ]);
             
             $user = $request->all();
@@ -65,6 +66,7 @@ class PengurusController extends Controller
             'name' => $request->name,
             'email' => $request->email,
             'roles' => $request->roles,
+            'no_hp' => $request->no_hp,
             'password' => Hash::make($request->password),
             
             ]);
