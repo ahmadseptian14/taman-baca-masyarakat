@@ -21,7 +21,9 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Nama Peminjam</th>
-                                                <th>Judul</th>
+                                                <th>Nomor Peminjaman</th>
+                                                <th>Judul Buku</th>
+                                                <th>Foto Buku</th>
                                                 <th>Penulis</th>
                                                 <th>Tanggal Pinjam</th>
                                                 <th>Tanggal Kembali</th>
@@ -32,33 +34,18 @@
                                             @forelse ($peminjamans as $peminjaman)
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $peminjaman->user->name}}</td>
+                                                    <td>{{ $peminjaman->peminjaman->user->name}}</td>
+                                                    <td>{{ $peminjaman->peminjaman->no_peminjaman}}</td>
                                                     <td>{{ $peminjaman->buku->judul}}</td>
+                                                    <td>
+                                                        <a href="{{asset('storage/'. $peminjaman->buku->foto)}}" target="_blank">
+                                                            <img src="{{Storage::url($peminjaman->buku->foto)}}" width="50" height="50" class="rounded-square">
+                                                        </a>
+                                                    </td>
                                                     <td>{{ $peminjaman->buku->penulis}}</td>
-                                                    <td>{{ $peminjaman->tgl_pinjam}}</td>
-                                                    <td>{{ $peminjaman->tgl_kembali}}</td>
+                                                    <td>{{ $peminjaman->peminjaman->tgl_pinjam}}</td>
+                                                    <td>{{ $peminjaman->peminjaman->tgl_kembali}}</td>
                                                     <td>{{ $peminjaman->status_peminjaman}}</td>
-                                                    {{-- <td>
-                                                        <a href="{{route('peminjaman.edit', $peminjaman->id)}}" class="btn btn-info btn-sm"><i class="fa fa-pencil d-inline" style="margin-right: 5px"></i>Update Peminjaman</a>
-                                                        <form action="{{ route('peminjaman.verifikasi')}}"
-                                                            method="POST" class="d-inline">
-                                                            @csrf
-                                                            <button class="btn btn-success mt-2 btn-sm">
-                                                                <i class="fa fa-check d-inline mr-2"></i>
-                                                                Verifikasi
-                                                            </button>
-                                                        </form>
-
-                                                        <form action="{{ route('peminjaman.retur', $peminjaman->id)}}"
-                                                            method="POST" class="d-inline">
-                                                            @csrf
-                                                            @method('delete')
-                                                            <button class="btn btn-success mt-2 btn-sm">
-                                                                <i class="fa fa-return d-inline mr-2"></i>
-                                                                Kembalikan Buku
-                                                            </button>
-                                                        </form>
-                                                    </td> --}}
                                                 </tr>
                                             @empty
                                                 <tr>

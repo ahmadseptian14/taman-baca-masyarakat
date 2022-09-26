@@ -21,6 +21,8 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Nama</th>
+                                                <th>NIK</th>
+                                                <th>Nomor Telepon</th>
                                                 <th>Email</th>
                                                 <th>Aksi</th>
                                             </tr>
@@ -30,9 +32,10 @@
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $pengurus->name }}</td>
+                                                    <td>{{ $pengurus->nik}}</td>
+                                                    <td>{{ $pengurus->no_hp}}</td>
                                                     <td>{{ $pengurus->email }}</td>
                                                     <td>
-                                                        {{-- <a href="{{route('member.edit', $item->id)}}" class="btn btn-info btn-sm"><i class="fa fa-pencil-alt d-block"></i>Edit Data</a> --}}
                                                         <form action="{{ route('pengurus.destroy', $pengurus->id) }}"
                                                             method="POST" class="d-inline">
                                                             @csrf

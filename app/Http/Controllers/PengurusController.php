@@ -18,11 +18,10 @@ class PengurusController extends Controller
     public function index()
     {
         $penguruss = User::where('roles', 'PENGURUS')->orderBy('created_at', 'DESC')->get();
-        
+
         return view('pages.admin.pengurus.index', [
             'penguruss' => $penguruss
         ]);
-
     }
 
     /**
@@ -31,13 +30,12 @@ class PengurusController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {   
+    {
         $tbms = Tbm::all();
 
         return view('pages.admin.pengurus.create', [
             'tbms' => $tbms
         ]);
-
     }
 
     /**
@@ -51,28 +49,35 @@ class PengurusController extends Controller
         $request->validate([
             'tbm_id' => 'required|string',
             'name' => 'required|string|max:255',
+            'nik' => 'required|string|max:20',
+            'alamat' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|confirmed|min:8',
             'roles' => 'required|string',
             'no_hp' => 'required'
-            ]);
-            
-            $user = $request->all();
-            
-            // $roles = 'PENGURUS';
+        ]);
 
-            $user = User::create([
-            'tbm_id' => $request->tbm_id,
-            'name' => $request->name,
-            'email' => $request->email,
-            'roles' => $request->roles,
-            'no_hp' => $request->no_hp,
-            'password' => Hash::make($request->password),
-            
+        if (request()->hasFile('foto')) {
+            $fotouploaded = request()->file('foto');
+            $fotoname = time() . '.' . $fotouploaded->getClientOriginalExtension();
+            $fotopath = public_path('/images/');
+            $fotouploaded->move($fotopath, $fotoname);
+
+             User::create([
+                'tbm_id' => $request->tbm_id,
+                'name' => $request->name,
+                'email' => $request->email,
+                'password' => Hash::make($request->password),
+                'no_hp' => $request->no_hp,
+                'alamat' => $request->alamat,
+                'nik' => $request->nik,
+                'roles' => 'PENGURUS',
+                'foto' => '/images/' . $fotoname,
             ]);
-            
-            Alert::success('Berhasil', 'Pengurus baru berhasil ditambahkan');
-            return redirect()->route('pengurus.index');
+        }
+
+        Alert::success('Berhasil', 'Pengurus baru berhasil ditambahkan');
+        return redirect()->route('pengurus.index');
     }
 
     /**

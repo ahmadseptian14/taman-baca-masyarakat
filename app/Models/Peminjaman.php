@@ -10,7 +10,7 @@ class Peminjaman extends Model
     use HasFactory;
 
     protected $fillable = [
-        'users_id', 'buku_id', 'buku_pengurus', 'tgl_pinjam', 'tgl_kembali', 'status_peminjaman'
+        'users_id', 'buku_id','tgl_pinjam', 'tgl_kembali', 'status_peminjaman', 'jumlah_pinjam', 'no_peminjaman'
     ];
 
     protected $table = 'peminjaman';
@@ -24,4 +24,10 @@ class Peminjaman extends Model
     {
         return $this->belongsTo(Buku::class, 'buku_id', 'id');
     }
+
+    public function detail_peminjaman()
+    {
+        return $this->hasMany(DetailPeminjaman::class, 'peminjaman_id', 'id');
+    }
+    
 }

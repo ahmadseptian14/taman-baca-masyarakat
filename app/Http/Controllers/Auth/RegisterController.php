@@ -54,6 +54,9 @@ class RegisterController extends Controller
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
             'no_hp' => ['required', 'string', 'max:12'],
+            'alamat' => ['required', 'string', 'max:255'],
+            // 'foto' => ['sometimes', 'max:5000'],
+            'nik' => ['required']
         ]);
     }
 
@@ -64,12 +67,41 @@ class RegisterController extends Controller
      * @return \App\Models\User
      */
     protected function create(array $data)
-    {       
-        return User::create([
+    {           
+
+        if (request()->hasFile('foto')) {
+            $fotouploaded = request()->file('foto');
+            $fotoname = time() . '.' . $fotouploaded->getClientOriginalExtension();
+            $fotopath = public_path('/images/');
+            $fotouploaded->move($fotopath, $fotoname);
+            // dd($fotoname);
+
+            return User::create([
+                'name' => $data['name'],
+                'email' => $data['email'],
+                'password' => Hash::make($data['password']),
+                'no_hp' => $data['no_hp'],
+                'alamat' => $data['alamat'],
+                'nik' => $data['nik'],
+                'foto' => '/images/' . $fotoname,
+            ]);
+        }
+
+        User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
             'no_hp' => $data['no_hp'],
+            'alamat' => $data['alamat'],
+            'nik' => $data['nik']
         ]);
+
+        // if(request()->hasFile('foto')) {
+        //     $foto = request()->file('foto')->getClientOriginalName();
+        //     request()->file('foto')->storeAs('foto', $user->id . '/' . $foto, '');
+        //     $user->update(['foto' => $foto]);
+        // }
+
+        // return $user;
     }
 }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Tbm;
 use App\Models\Buku;
+use App\Models\DetailPeminjaman;
 use App\Models\User;
 use App\Models\Kategori;
 use App\Models\Peminjaman;
@@ -21,7 +22,7 @@ class DashboardController extends Controller
     {   
         $buku_pengurus = Buku::where('users_id', Auth::user()->id)->count();
         $buku = Buku::count();
-        $peminjaman_pengurus = Peminjaman::where('buku_pengurus', Auth::user()->id)->count();
+        $peminjaman_pengurus = DetailPeminjaman::where('pengurus_id', Auth::user()->id)->count();
         $peminjaman = Peminjaman::count();
         $kategori = Kategori::count();
         $tbm = Tbm::count();

@@ -24,10 +24,11 @@
                                     @csrf
                                     @method('put')
                                     <div class="row">
-                                        <div class="col-md-12">
+                                        <div class="col-4">
                                             <div class="form-group">
-                                                <label>Tanggal Kembali</label>
-                                                <input type="date" name="tgl_kembali" class="form-control" required value="{{$peminjaman->tgl_kembali}}">
+                                                <h5 class="mb-1 mt-2">Tanggal Kembali</h5>
+                                                <input type="text" name="tgl_kembali" class="form-control"
+                                                    id="tanggal_kembali" width="312">
                                             </div>
                                         </div>
                                     </div>
@@ -47,10 +48,12 @@
         </div>
     @endsection
 
-    @push('addon-stack')
-        <script>
-            $(document).ready(function() {
-                $('.select2').select2();
-            });
-        </script>
+    @push('addon-scripts')
+    <script>
+        var today, datepicker;
+        today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+        datepicker = $('#tanggal_kembali').datepicker({
+            minDate: today
+        });
+    </script>
     @endpush

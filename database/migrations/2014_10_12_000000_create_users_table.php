@@ -17,10 +17,13 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->integer('tbm_id')->nullable();
             $table->string('name');
+            $table->string('nik');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->string('roles');
+            $table->string('roles')->default('ANGGOTA');
+            $table->string('alamat');
+            $table->string('foto');
             $table->bigInteger('no_hp');
             $table->rememberToken();
             $table->timestamps();

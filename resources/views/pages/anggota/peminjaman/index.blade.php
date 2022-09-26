@@ -4,9 +4,9 @@
     <div class="section-content section-dashboard-home" data-aos="fade-up">
         <div class="container-fluid">
             <div class="dashboard-heading">
-                <h2 class="dashboard-title">Daftar buku yang di pinjam</h2>
+                <h2 class="dashboard-title">Daftar peminjaman</h2>
                 <p class="dashboard-subtitle">
-                    Daftar Buku
+                    Daftar keseluruhan peminjaman
                 </p>
             </div>
             <div class="dashboard-content">
@@ -20,12 +20,11 @@
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Judul</th>
-                                                <th>Foto</th>
-                                                <th>Penulis</th>
+                                                <th>Nomor Peminjaman</th>
                                                 <th>Tanggal Pinjam</th>
                                                 <th>Tanggal Kembali</th>
-                                                <th>Status Pinjam</th>
+                                                <th>Jumlah Pinjam</th>
+                                                <th>Tanggal Peminjaman</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -33,30 +32,18 @@
                                             @forelse ($peminjamans as $peminjaman)
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $peminjaman->buku->judul}}</td>
-                                                    <td>
-                                                        <a href="{{asset('storage/'. $peminjaman->buku->foto)}}" target="_blank">
-                                                            <img src="{{Storage::url($peminjaman->buku->foto)}}" width="50" height="50" class="rounded-square">
-                                                        </a>
-                                                    </td>
-                                                    <td>{{ $peminjaman->buku->penulis}}</td>
+                                                    <td>{{ $peminjaman->no_peminjaman}}</td>
                                                     <td>{{ $peminjaman->tgl_pinjam}}</td>
                                                     <td>{{ $peminjaman->tgl_kembali}}</td>
-                                                    <td>{{ $peminjaman->status_peminjaman}}</td>
-                                                    {{-- <td>
-                                                        <form action="{{ route('peminjaman.destroy', $peminjaman->id)}}"
-                                                            method="POST" class="d-inline">
-                                                            @csrf
-                                                            @method('delete')
-                                                            <button class="btn btn-danger mt-2 btn-sm">
-                                                                <i class="fa fa-trash d-inline">Hapus </i>
-                                                            </button>
-                                                        </form>
-                                                    </td> --}}
+                                                    <td>{{ $peminjaman->jumlah_pinjam}}</td>
+                                                    <td>{{ $peminjaman->created_at}}</td>
+                                                    <td>
+                                                        <a href="{{route('peminjaman.detail', $peminjaman->id)}}" class="btn btn-sm btn-success">Detail Peminjaman</a>
+                                                    </td>
                                                 </tr>
                                             @empty
                                                 <tr>
-                                                    <td colspan="7" class="text-center">Tidak Ada kategori</td>
+                                                    <td colspan="7" class="text-center">Tidak Ada Peminjaman</td>
                                                 </tr>
                                             @endforelse
                                         </tbody>

@@ -20,12 +20,10 @@
                                         <thead>
                                             <tr>
                                                 <th>No</th>
-                                                <th>Nama Peminjam</th>
-                                                <th>Judul</th>
-                                                <th>Penulis</th>
+                                                <th>Nama</th>
+                                                <th>No.Peminjaman</th>
                                                 <th>Tanggal Pinjam</th>
                                                 <th>Tanggal Kembali</th>
-                                                <th>Status</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -34,45 +32,12 @@
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
                                                     <td>{{ $peminjaman->user->name}}</td>
-                                                    <td>{{ $peminjaman->buku->judul}}</td>
-                                                    <td>{{ $peminjaman->buku->penulis}}</td>
-                                                    <td>{{ $peminjaman->tgl_pinjam->format('d-m-Y - H:i:s')}}</td>
+                                                    <td>{{ $peminjaman->no_peminjaman}}</td>
+                                                    <td>{{ $peminjaman->tgl_pinjam}}</td>
                                                     <td>{{ $peminjaman->tgl_kembali}}</td>
-                                                    <td>{{ $peminjaman->status_peminjaman}}</td>
-                                                    <td>
-                                                        <a href="{{route('peminjaman.edit', $peminjaman->id)}}" class="btn btn-info btn-sm"><i class="fa fa-pencil d-inline" style="margin-right: 5px"></i>Update Peminjaman</a>
-
-                                                        <form action="{{ route('peminjaman.verifikasi', $peminjaman->id)}}"
-                                                            method="POST" class="d-inline">
-                                                            @csrf
-                                                            <button class="btn btn-success mt-2 btn-sm">
-                                                                <i class="fa fa-check d-inline mr-2"></i>
-                                                                Verifikasi
-                                                            </button>
-                                                        </form>
-
-                                                        @if ($peminjaman->status_peminjaman == 'Buku sudah bisa di ambil')
-                                                        <form action="{{ route('peminjaman.retur', $peminjaman->id)}}"
-                                                            method="POST" class="d-inline">
-                                                            @csrf
-                                                            @method('delete')
-                                                            <button class="btn btn-success mt-2 btn-sm">
-                                                                <i class="fa fa-return d-inline mr-2"></i>
-                                                                Kembalikan Buku
-                                                            </button>
-                                                        </form>
-                                                        @else
-                                                        <form action="{{ route('peminjaman.retur', $peminjaman->id)}}"
-                                                            method="POST" class="d-inline">
-                                                            @csrf
-                                                            @method('delete')
-                                                            <button class="btn btn-success mt-2 btn-sm" disabled>
-                                                                <i class="fa fa-return d-inline mr-2"></i>
-                                                                Kembalikan Buku
-                                                            </button>
-                                                        </form>
-                                                        @endif
-                                                        
+                                                    <td>                                                        
+                                                        <a href="{{route('peminjaman.detail_pengurus', $peminjaman->id)}}" class="btn btn-sm btn-success">Detail Peminjaman</a>
+                                                        <a href="{{route('peminjaman.edit', $peminjaman->id)}}" class="btn btn-info btn-sm"><i class="fa fa-pencil d-inline" style="margin-right: 5px"></i>Update tanggal kembali</a>
                                                     </td>
                                                 </tr>
                                             @empty

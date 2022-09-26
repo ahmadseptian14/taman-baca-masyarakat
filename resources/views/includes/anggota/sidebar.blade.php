@@ -103,6 +103,18 @@
 
 
             @if (Auth::user()->roles == 'ANGGOTA')
+                
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ route('buku.anggota') }}">
+                        <i class="fas fa-fw fa-book" style="margin-right: 5px"></i>
+                        <span>Lihat Buku</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="{{ route('tbm.anggota') }}">
+                        <i class="fas fa-fw fa-book" style="margin-right: 5px"></i>
+                        <span>Lihat TBM</span></a>
+                </li>
+
                 <li class="nav-item active">
                     <a class="nav-link" href="{{ route('peminjaman.index') }}">
                         <i class="fas fa-fw fa-list" style="margin-right: 5px"></i>
@@ -115,16 +127,6 @@
                         <span>Riwayat Peminjaman</span></a>
                 </li>
 
-                <li class="nav-item active">
-                    <a class="nav-link" href="{{ route('buku.anggota') }}">
-                        <i class="fas fa-fw fa-book" style="margin-right: 5px"></i>
-                        <span>Lihat Buku</span></a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="{{ route('tbm.anggota') }}">
-                        <i class="fas fa-fw fa-book" style="margin-right: 5px"></i>
-                        <span>Lihat TBM</span></a>
-                </li>
             @endif
 
 
