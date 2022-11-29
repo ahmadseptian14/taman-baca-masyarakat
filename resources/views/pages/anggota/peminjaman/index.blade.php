@@ -6,7 +6,7 @@
             <div class="dashboard-heading">
                 <h2 class="dashboard-title">Daftar peminjaman</h2>
                 <p class="dashboard-subtitle">
-                    Daftar keseluruhan peminjaman
+                    Daftar keseluruhan Peminjaman Buku
                 </p>
             </div>
             <div class="dashboard-content">
