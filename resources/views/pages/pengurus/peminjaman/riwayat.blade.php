@@ -21,7 +21,7 @@
                                             <tr>
                                                 <th>No</th>
                                                 <th>Nama Peminjam</th>
-                                                <th>Nomor Peminjaman</th>
+                                                <th>Kode Peminjaman</th>
                                                 <th>Judul Buku</th>
                                                 <th>Foto Buku</th>
                                                 <th>Penulis</th>
@@ -34,8 +34,8 @@
                                             @forelse ($peminjamans as $peminjaman)
                                                 <tr>
                                                     <td>{{ $loop->iteration }}</td>
-                                                    <td>{{ $peminjaman->peminjaman->user->name}}</td>
-                                                    <td>{{ $peminjaman->peminjaman->no_peminjaman}}</td>
+                                                    <td>{{ $peminjaman->user->name}}</td>
+                                                    <td>{{ $peminjaman->kode_peminjaman}}</td>
                                                     <td>{{ $peminjaman->buku->judul}}</td>
                                                     <td>
                                                         <a href="{{asset('storage/'. $peminjaman->buku->foto)}}" target="_blank">
@@ -43,8 +43,8 @@
                                                         </a>
                                                     </td>
                                                     <td>{{ $peminjaman->buku->penulis}}</td>
-                                                    <td>{{ $peminjaman->peminjaman->tgl_pinjam}}</td>
-                                                    <td>{{ $peminjaman->peminjaman->tgl_kembali}}</td>
+                                                    <td>{{ $peminjaman->tgl_pinjam}}</td>
+                                                    <td>{{ $peminjaman->tgl_kembali}}</td>
                                                     <td>{{ $peminjaman->status_peminjaman}}</td>
                                                 </tr>
                                             @empty

@@ -25,6 +25,7 @@
                                                 <th>Judul Buku</th>
                                                 <th>Penulis</th>
                                                 <th>Penerbit</th>
+                                                <th>Jumlah Pinjam</th>
                                                 <th>Status Peminjaman</th>
                                             </tr>
                                         </thead>
@@ -41,6 +42,7 @@
                                                     <td>{{ $detailPeminjaman->buku->judul}}</td>
                                                     <td>{{ $detailPeminjaman->buku->penulis}}</td>
                                                     <td>{{ $detailPeminjaman->buku->penerbit}}</td>
+                                                    <td>{{ $detailPeminjaman->stok }}</td>
                                                     <td>{{ $detailPeminjaman->status_peminjaman}}</td>
                                                 </tr>
                                             @empty

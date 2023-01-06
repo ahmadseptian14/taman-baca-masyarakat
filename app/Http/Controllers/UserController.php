@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use RealRashid\SweetAlert\Facades\Alert;
 use Illuminate\Validation\ValidationException;
@@ -16,7 +18,11 @@ class UserController extends Controller
      */
     public function index()
     {
-        //
+        $user = Auth::user();
+
+        return view('pages.anggota.profile.index', [
+            'user' => $user
+        ]);
     }
 
     /**
@@ -59,7 +65,7 @@ class UserController extends Controller
      */
     public function edit()
     {
-        return view('pages.akun.ubah_password');
+
     }
 
     /**
@@ -69,6 +75,30 @@ class UserController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
+
+    public function update_foto(Request $reqeuest)
+    {
+        $user = User::findOrFail(Auth::user()->id);
+
+        if ($user) {
+            if (request()->hasFile('foto')) {
+                $fotouploaded = request()->file('foto');
+                $fotoname = time() . '.' . $fotouploaded->getClientOriginalExtension();
+                $fotopath = public_path('/images/');
+                $fotouploaded->move($fotopath, $fotoname);
+
+                $user->foto = public_path('/images/');
+                $user->foto = '/images/' . $fotoname;
+                $user->update();
+            }
+                Alert::success('Berhasil', 'Foto Berhasil diubah');
+
+                return redirect()->back();
+        }
+    }
+
+
+
     public function update(Request $request)
     {
         $request->validate([
@@ -79,8 +109,8 @@ class UserController extends Controller
         if (Hash::check($request->current_password, auth()->user()->password)) {
             auth()->user()->update(['password' => Hash::make($request->password)]);
             Alert::success('Berhasil', 'Password Berhasil di Update');
-            return redirect()->route('dashboard.index');
-        }   
+            return redirect()->back();
+        }
 
         throw ValidationException::withMessages([
             'current_password' => 'Password saat ini yang anda masukan salah'

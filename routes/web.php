@@ -32,6 +32,10 @@ Route::put('/edit/password', [UserController::class, 'update'])->middleware(['au
 
 
 Route::prefix('list-buku')->middleware(['auth', 'anggota'])->group(function () {
+    // Profile
+    Route::get('/profile', [UserController::class, 'index'])->name('user.index');
+    Route::put('/update-foto', [UserController::class, 'update_foto'])->name('user.update-foto');
+
     // Buku
     Route::get('/', [BukuController::class, 'buku_anggota'])->name('buku.anggota');
 
@@ -75,6 +79,9 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/tambah/buku', [BukuController::class, 'create'])->name('buku.create');
     Route::post('/tambah-buku', [BukuController::class, 'store'])->name('buku.store');
     Route::delete('/buku/{id}', [BukuController::class, 'destroy'])->name('buku.destroy');
+    Route::post('/tambah-buku/{id}', [BukuController::class, 'tambah'])->name('buku.tambah');
+    Route::post('/kurang-buku/{id}', [BukuController::class, 'kurang'])->name('buku.kurang');
+
 
     // Pengurus
     Route::get('/pengurus', [PengurusController::class, 'index'])->name('pengurus.index');

@@ -19,20 +19,20 @@ class DashboardController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {
         $buku_pengurus = Buku::where('users_id', Auth::user()->id)->count();
         $buku = Buku::count();
-        $peminjaman_pengurus = DetailPeminjaman::where('pengurus_id', Auth::user()->id)->count();
+        // $peminjaman_pengurus = DetailPeminjaman::where('pengurus_id', Auth::user()->id)->count();
         $peminjaman = Peminjaman::count();
         $kategori = Kategori::count();
         $tbm = Tbm::count();
         $pengurus = User::where('roles', 'PENGURUS')->count();
-        
+
 
         return view('pages.anggota.dashboard', [
             'buku_pengurus' => $buku_pengurus,
             'buku' => $buku,
-            'peminjaman_pengurus' => $peminjaman_pengurus,
+            // 'peminjaman_pengurus' => $peminjaman_pengurus,
             'peminjaman' => $peminjaman,
             'kategori' => $kategori,
             'tbm' => $tbm,

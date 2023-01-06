@@ -71,7 +71,7 @@
                                     </tbody>
                                 </table>
                                 <div class="row">
-                                   
+
                                     <div class="row mt-3">
                                         <div class="col text-right form-group">
                                             @if (!empty($keranjang))
@@ -84,10 +84,10 @@
                                             data-tbm="{{$keranjang->buku->tbm->nama_tbm}}"
                                             data-isbn="{{$keranjang->buku->isbn}}"
                                             data-judul="{{$keranjang->buku->judul}}"
-                                            data-total_buku="{{$totalBuku}}"    
+                                            data-total_buku="{{$totalBuku}}"
                                             @endforeach
-                                            >Pinjam</a>  
-                                            @endif                                        
+                                            >Pinjam</a>
+                                            @endif
                                         </div>
                                     </div>
                                 </div>
@@ -122,7 +122,7 @@
                                 <th>Nomor Telepon</th>
                                 <td><span id="no_hp"></span></td>
                             </tr>
-                           
+
                         </tbody>
                     </table>
                     <table class="table table-bordered no-margin">
@@ -130,6 +130,7 @@
                             <th>Judul Buku</th>
                             <th>No ISBN</th>
                             <th>TBM</th>
+                            <th>Jumlah</th>
                         </thead>
                         <tbody>
                             @foreach ($keranjangs as $keranjang)
@@ -137,6 +138,7 @@
                                 <td><span id="tbm">{{$keranjang->buku->tbm->nama_tbm}}</span></td>
                                 <td><span id="isbn">{{$keranjang->buku->isbn}}</span></td>
                                 <td><span id="judul">{{$keranjang->buku->judul}}</span></td>
+                                <td><span id="judul">{{$keranjang->jumlah_pinjam}}</span></td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -172,7 +174,7 @@
                     </div>
                 </form>
                 </div>
-               
+
             </div>
         </div>
     </div>

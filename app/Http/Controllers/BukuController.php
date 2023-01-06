@@ -7,6 +7,7 @@ use App\Models\Buku;
 use App\Models\Kategori;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class BukuController extends Controller
 {
@@ -16,7 +17,7 @@ class BukuController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index()
-    {   
+    {
         // $users_id = Auth::user()->id;
 
         $bukus = Buku::with(['tbm', 'kategori'])
@@ -42,7 +43,7 @@ class BukuController extends Controller
 
 
     public function buku_anggota()
-    {   
+    {
         // $users_id = Auth::user()->id;
 
         $bukus = Buku::with(['tbm', 'kategori'])
@@ -60,9 +61,9 @@ class BukuController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function create()
-    {   
+    {
         // $tbm = Tbm::where('users_id', Auth::user()->id)->get();
-        $kategoris = Kategori::all(); 
+        $kategoris = Kategori::all();
 
         return view('pages.pengurus.buku.create', [
             // 'tbm' => $tbm,
@@ -89,6 +90,34 @@ class BukuController extends Controller
         Buku::create($data);
 
         return redirect()->route('buku.pengurus');
+    }
+
+    public function tambah(Request $request, $id)
+    {
+        $sum = Buku::findOrFail($id);
+
+        Buku::where('id', $id)->update([
+            'stok_tersedia' => $sum->stok_tersedia + $request->stok_tersedia,
+        ]);
+
+        Alert::success('Informasi Pesan!', 'Buku berhasil di tambah');
+
+        return redirect()->back();
+    }
+
+    public function kurang(Request $request, $id)
+    {
+        $sum = Buku::findOrFail($id);
+        if ($request->stok_tersedia >= $sum->stok_tersedia) {
+            Alert::error('Informasi Pesan!', 'Stok buku tidak boleh kurang dari 0');
+        } else {
+            Buku::where('id', $id)->update([
+                'stok_tersedia' => $sum->stok_tersedia - $request->stok_tersedia,
+            ]);
+            Alert::success('Informasi Pesan!', 'Buku berhasil di kurang');
+        }
+
+        return redirect()->back();
     }
 
     /**
@@ -135,7 +164,7 @@ class BukuController extends Controller
     {
         $buku = Buku::findOrFail($id);
 
-        
+
         $buku->delete();
 
         return redirect()->back()->with('message', 'Buku berhasil dihapus');

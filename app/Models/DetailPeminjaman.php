@@ -9,7 +9,7 @@ class DetailPeminjaman extends Model
 {
     use HasFactory;
 
-    protected $fillable = ['peminjaman_id', 'buku_id', 'pengurus_id', 'status_peminjaman'];
+    protected $fillable = ['peminjaman_id', 'buku_id', 'pengurus_id', 'status_peminjaman', 'jumlah_pinjam'];
 
     protected $table = 'detail_peminjaman';
 
@@ -17,7 +17,7 @@ class DetailPeminjaman extends Model
     {
         return $this->hasOne(user::class, 'id', 'pengurus_id');
     }
-    
+
     public function buku()
     {
         return $this->hasOne(Buku::class, 'id', 'buku_id');
@@ -25,7 +25,7 @@ class DetailPeminjaman extends Model
 
     public function peminjaman()
     {
-        return $this->hasOne(Peminjaman::class, 'id', 'peminjaman_id'); 
+        return $this->hasOne(Peminjaman::class, 'id', 'peminjaman_id');
     }
 
-}   
+}

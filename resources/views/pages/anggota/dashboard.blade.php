@@ -16,16 +16,16 @@
                 </div>
             </div>
         </div>
-        <div class="col-xl-3 col-md-6">
+        {{-- <div class="col-xl-3 col-md-6">
             <div class="card bg-warning text-white mb-4">
                 <div class="card-body">
                     <h3>Peminjaman</h3>
                     <h3>{{$peminjaman_pengurus}}</h3>
                 </div>
             </div>
-        </div>
+        </div> --}}
         @endif
-        
+
         @if (Auth::user()->roles == 'ADMIN')
         <div class="col-xl-3 col-md-6">
             <div class="card bg-success text-white mb-4">
@@ -51,7 +51,7 @@
                 </div>
             </div>
         </div>
-       
+
         <div class="col-xl-3 col-md-6">
             <div class="card bg-success text-white mb-4">
                 <div class="card-body">
@@ -69,7 +69,7 @@
             </div>
         </div>
         @endif
-       
+
     </div>
 </div>
 @endsection

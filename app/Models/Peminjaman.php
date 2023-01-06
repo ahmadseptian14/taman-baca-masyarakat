@@ -10,24 +10,24 @@ class Peminjaman extends Model
     use HasFactory;
 
     protected $fillable = [
-        'users_id', 'buku_id','tgl_pinjam', 'tgl_kembali', 'status_peminjaman', 'jumlah_pinjam', 'no_peminjaman'
+        'users_id','pengurus_id', 'buku_id','tgl_pinjam', 'tgl_kembali', 'status_peminjaman', 'jumlah_pinjam', 'kode_peminjaman'
     ];
 
     protected $table = 'peminjaman';
 
     public function user()
     {
-        return $this->belongsTo(User::class, 'users_id', 'id');
+        return $this->hasOne(user::class, 'id', 'users_id');
     }
 
     public function buku()
     {
-        return $this->belongsTo(Buku::class, 'buku_id', 'id');
+        return $this->hasOne(Buku::class, 'id', 'buku_id');
     }
 
     public function detail_peminjaman()
     {
         return $this->hasMany(DetailPeminjaman::class, 'peminjaman_id', 'id');
     }
-    
+
 }

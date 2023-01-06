@@ -10,13 +10,13 @@ use RealRashid\SweetAlert\Facades\Alert;
 
 class KeranjangController extends Controller
 {
-    public function index() 
-    {   
+    public function index()
+    {
 
         $keranjangs = Keranjang::with(['buku', 'user'])->where('users_id', Auth::user()->id)->get();
         return view('pages.anggota.keranjang.index', [
             'keranjangs' => $keranjangs
-        ]);  
+        ]);
 
     }
 
@@ -25,26 +25,31 @@ class KeranjangController extends Controller
     {
         $buku = Buku::where('id', $id)->first();
 
-        $data = [
-            'buku_id' => $id,
-            'users_id' => Auth::user()->id,
-            'jumlah_pinjam' => $request->jumlah_pinjam,
-        ];
+        if ($request->jumlah_pinjam >= $buku->stok_tersedia ) {
+            Alert::error('Gagal!', 'Stok buku tidak cukup');
+            return redirect()->back();
+        } else {
+            $data = [
+                'buku_id' => $id,
+                'users_id' => Auth::user()->id,
+                'jumlah_pinjam' => $request->jumlah_pinjam,
+            ];
 
-        Keranjang::create($data);
+            Keranjang::create($data);
+        }
 
         Alert::success('Informasi Pesan!', 'Buku Berhasil ditambahkan ke keranjang');
-        
+
         return redirect()->route('keranjang.index');
     }
 
 
-    public function destroy($id) 
+    public function destroy($id)
     {
         $keranjang = Keranjang::findOrFail($id);
 
         $keranjang->delete();
- 
+
         return redirect()->route('keranjang.index');
     }
 

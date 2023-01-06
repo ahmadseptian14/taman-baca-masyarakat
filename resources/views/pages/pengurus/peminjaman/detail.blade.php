@@ -26,6 +26,7 @@
                                                 <th>Penulis</th>
                                                 <th>Penerbit</th>
                                                 <th>Status Peminjaman</th>
+                                                <th>Jumlah Pinjam</th>
                                                 <th>Aksi</th>
                                             </tr>
                                         </thead>
@@ -43,6 +44,7 @@
                                                     <td>{{ $detailPeminjaman->buku->penulis}}</td>
                                                     <td>{{ $detailPeminjaman->buku->penerbit}}</td>
                                                     <td>{{ $detailPeminjaman->status_peminjaman}}</td>
+                                                    <td>{{ $detailPeminjaman->jumlah_pinjam}}</td>
                                                     <td>
                                                         @if ($detailPeminjaman->status_peminjaman == 'Buku sudah bisa di ambil')
                                                         <form action="{{ route('peminjaman.retur', $detailPeminjaman->id)}}"
@@ -72,8 +74,8 @@
                                                                 <i class="fa fa-check d-inline mr-2"></i>
                                                                 Verifikasi Peminjaman
                                                             </button>
-                                                        </form>  
-                                                    </td>      
+                                                        </form>
+                                                    </td>
                                                 </tr>
                                             @empty
                                                 <tr>

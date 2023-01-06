@@ -62,16 +62,16 @@
                                                     @endif
                                                     @if ($buku->stok_tersedia == 0)
                                                     <td>
-                                                        <a href="{{route('peminjaman.create', $buku->id)}}" class="btn btn-secondary btn-sm disable"><i class="fa fa-pencil-alt d-inline"></i>Pinjam</a>
-                                                        
+                                                        <a href="{{route('peminjaman.create', $buku->id)}}" class="btn btn-secondary btn-sm disable"></i>Stok Habis</a>
+
                                                     </td>
                                                     @else
                                                          <td>
                                                         <a href="{{route('peminjaman.create', $buku->id)}}" class="btn btn-info btn-sm"><i class="fa fa-pencil-alt d-inline"></i>Pinjam</a>
-                                                        
+
                                                     </td>
                                                     @endif
-                                                   
+
                                                 </tr>
                                             @empty
                                                 <tr>
