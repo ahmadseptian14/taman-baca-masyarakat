@@ -41,10 +41,10 @@
                                                         </a>
                                                     </td>
                                                     <td>{{ $peminjaman->buku->penulis}}</td>
-                                                    <td>{{ $peminjaman->peminjaman->tgl_pinjam}}</td>
-                                                    <td>{{ $peminjaman->peminjaman->tgl_kembali}}</td>
+                                                    <td>{{ $peminjaman->tgl_pinjam}}</td>
+                                                    <td>{{ $peminjaman->tgl_kembali}}</td>
                                                     <td>{{ $peminjaman->status_peminjaman}}</td>
-                                                   
+
                                                 </tr>
                                             @empty
                                                 <tr>
