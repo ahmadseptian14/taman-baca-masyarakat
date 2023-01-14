@@ -33,14 +33,23 @@ return [
     |
     */
 
+    // 'gmail' => [
+    //     'transport' => 'smtp',
+    //     'host' => 'smtp.gmail.com',
+    //     'port' => 587,
+    //     'encryption' => 'tls',
+    //     'username' => 'tbmverifikasi@gmail.com',
+    //     'password' => 'roskuixnhwagnybq',
+    // ],
+
     'mailers' => [
         'smtp' => [
             'transport' => 'smtp',
-            'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
+            'host' => env('MAIL_HOST', 'smtp.gmail.com'),
             'port' => env('MAIL_PORT', 587),
-            'encryption' => env('MAIL_ENCRYPTION', 'tls'),
-            'username' => env('MAIL_USERNAME'),
-            'password' => env('MAIL_PASSWORD'),
+            'encryption' => env('MAIL_ENCRYPTION', 'ssl'),
+            'username' => env('tbmverifikasi@gmail.com'),
+            'password' => env('roskuixnhwagnybq'),
             'timeout' => null,
             'auth_mode' => null,
         ],
@@ -92,7 +101,7 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
+        'address' => env('MAIL_FROM_ADDRESS', 'tbmverifikasi@gmail.com'),
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
 
@@ -112,6 +121,14 @@ return [
 
         'paths' => [
             resource_path('views/vendor/mail'),
+        ],
+    ],
+
+    'stream' => [
+        'ssl' => [
+            'allow_self_signed' => true,
+            'verify_peer'       => false,
+            'verify_peer_name'  => false,
         ],
     ],
 

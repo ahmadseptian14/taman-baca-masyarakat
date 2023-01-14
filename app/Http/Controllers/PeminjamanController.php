@@ -141,7 +141,7 @@ class PeminjamanController extends Controller
 
         $keranjangs = Keranjang::with(['buku', 'user'])->where('users_id', Auth::user()->id)->get();
 
-        $jumlahPinjam = Keranjang::where('users_id', Auth::user()->id)->sum('jumlah_pinjam');
+        // $jumlahPinjam = Keranjang::where('users_id', Auth::user()->id)->sum('jumlah_pinjam');
 
         // $kode_peminjaman = 'Kadigi-' . mt_rand(000000, 999999);
         // if ($request->all() >= 100 ) {
@@ -155,7 +155,7 @@ class PeminjamanController extends Controller
                 'kode_peminjaman' => 'Kadigi-' . mt_rand(000000, 999999),
                 'tgl_pinjam' => $request->tgl_pinjam,
                 'tgl_kembali' => $request->tgl_kembali,
-                'jumlah_pinjam' => $jumlahPinjam,
+                'jumlah_pinjam' => $keranjang->jumlah_pinjam,
                 'status_peminjaman' => 'Belum diverifikasi'
             ]);
 

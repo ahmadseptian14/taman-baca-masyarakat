@@ -66,4 +66,3 @@ class User extends Authenticatable
         return $this->hasMany(Peminjaman::class, 'users_id', 'id');
     }
 }
-

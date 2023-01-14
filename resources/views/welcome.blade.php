@@ -69,19 +69,22 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="collapse navbar-collapse text-center" id="navbarSupportedContent">
-                    <ul class="navbar-nav ml-auto">
+                    <ul class="navbar-nav ">
                         <li class="nav-item active">
                             <a class="nav-link" href="{{url('/')}}">Home</a>
                         </li>
-                        <li class="nav-item">
+                        {{-- <li class="nav-item">
                             <a class="nav-link" href="#">TBM</a>
-                        </li>
+                        </li> --}}
                         @guest
-                        <li class="nav-item d-flex justify-content-center">
+                        <li class="nav-item ">
                             <a class="nav-link" href="{{route('login')}}">Login</a>
                         </li>
+                        <li class="nav-item ">
+                            <a class="nav-link" href="{{route('register')}}">Register</a>
+                        </li>
                         @endguest
-                        
+
                         @auth
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -91,14 +94,14 @@
                               <li>
                                 <a class="dropdown-item" href="{{ route('logout') }}"
                                 onclick="event.preventDefault(); document.getElementById('logout-form').submit();">Logout</a>
-                      
+
                                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
                                   @csrf
                                 </form>
                               </li>
-                             
+
                         @endauth
-                       
+
                     </ul>
                 </div>
             </div>
@@ -849,7 +852,7 @@
             </div>
         </div>
     </div>
-</footer> 
+</footer>
       <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta2/dist/js/bootstrap.bundle.min.js" integrity="sha384-b5kHyXgcpbZJO/tY9Ul7kGkf1S0CWuKcCD38l8YkeH8z8QjE0GmW1gYU5S9FOnJ0" crossorigin="anonymous"></script>
     </body>
   </html>
