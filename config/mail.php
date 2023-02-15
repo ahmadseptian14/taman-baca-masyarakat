@@ -45,11 +45,11 @@ return [
     'mailers' => [
         'smtp' => [
             'transport' => 'smtp',
-            'host' => env('MAIL_HOST', 'smtp.gmail.com'),
-            'port' => env('MAIL_PORT', 587),
+            'host' => env('MAIL_HOST', 'smtp.tbm.masuk.id'),
+            'port' => env('MAIL_PORT', 465),
             'encryption' => env('MAIL_ENCRYPTION', 'ssl'),
-            'username' => env('tbmverifikasi@gmail.com'),
-            'password' => env('roskuixnhwagnybq'),
+            'username' => env('verifikasi@tbm.masuk.id'),
+            'password' => env('Verifikasi123'),
             'timeout' => null,
             'auth_mode' => null,
         ],

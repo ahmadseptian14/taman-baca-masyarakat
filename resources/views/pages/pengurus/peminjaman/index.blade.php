@@ -4,6 +4,31 @@
     <div class="section-content section-dashboard-home" data-aos="fade-up">
         <div class="container-fluid">
             <div class="dashboard-heading">
+                <h2 class="dashboard-title">Export Laporan Peminjaman</h2>
+                <div class="card mb-5">
+                    <div class="container p-3">
+                        <form action="{{route('peminjaman.export-peminjaman')}}" method="GET">
+                            @csrf
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Dari Tanggal</label>
+                                        <input type="text" name="start_date" id="start_date" class="form-control">
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label>Sampai Tanggal</label>
+                                        <input type="text" name="end_date" id="end_date" class="form-control">
+                                    </div>
+                                </div>
+                            </div>
+                            <button type="submit" name="cari" class="btn btn-primary btn-block mt-3">Export</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+            <div class="dashboard-heading">
                 <h2 class="dashboard-title">Daftar buku yang di pinjam</h2>
                 <p class="dashboard-subtitle">
                     Daftar Buku
@@ -115,6 +140,25 @@
 @endsection
 
 @push('addon-scripts')
+
+  {{-- Tangggal Pinjam --}}
+  <script>
+    var today, datepicker;
+    today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+    datepicker = $('#start_date').datepicker({
+        // minDate: today
+    });
+</script>
+
+{{-- Tanggal Kembali --}}
+<script>
+    var today, datepicker;
+    today = new Date(new Date().getFullYear(), new Date().getMonth(), new Date().getDate());
+    datepicker = $('#end_date').datepicker({
+        // minDate: today
+    });
+</script>
+
     <script>
         window.addEventListener('DOMContentLoaded', event => {
             // Simple-DataTables

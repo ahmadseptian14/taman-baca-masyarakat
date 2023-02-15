@@ -51,22 +51,28 @@
                                                     <td>{{ $buku->stok_tersedia }}</td>
                                                     <td>{{ $buku->stok_pinjam }}</td>
                                                     <td>
-                                                        <button type="button" class="btn btn-primary"
-                                                            data-bs-toggle="modal" data-bs-target="#tambahBuku-{{$buku->id}}">
-                                                            Tambah Buku
+                                                        <button type="button" class="btn btn-primary mb-2 btn-sm"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#tambahBuku-{{ $buku->id }}">
+                                                            <i class="fa fa-plus"></i>
+                                                            Tambah
                                                         </button>
-
-                                                        <button type="button" class="btn btn-primary"
-                                                        data-bs-toggle="modal" data-bs-target="#kurangBuku-{{$buku->id}}">
-                                                        Kurang Buku
-                                                    </button>
-
+                                                        <br>
+                                                        <button type="button" class="btn btn-primary btn-sm"
+                                                            data-bs-toggle="modal"
+                                                            data-bs-target="#kurangBuku-{{ $buku->id }}">
+                                                            <i class="fa fa-minus"></i>
+                                                            Kurang
+                                                        </button>
+                                                        <br>
+                                                        <a href="{{route('buku.edit', $buku->id)}}" class="btn-sm btn-info btn mt-2"><i class="fa fa-pencil"></i> Edit</a>
+                                                        <br>
                                                         <form action="{{ route('buku.destroy', $buku->id) }}"
                                                             method="POST" class="d-inline">
                                                             @csrf
                                                             @method('delete')
-                                                            <button class="btn btn-danger mt-2 btn-sm">
-                                                                <i class="fa fa-trash d-inline"></i> Hapus
+                                                            <button class="btn btn-danger mt-2 btn-sm ">
+                                                                <i class="fa fa-trash"></i> Hapus
                                                             </button>
                                                         </form>
                                                     </td>
@@ -88,7 +94,8 @@
     </div>
 
     {{-- Modal tambah buku --}}
-    <div class="modal fade" id="tambahBuku-{{$buku->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal fade" id="tambahBuku-{{ $buku->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -96,7 +103,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{route('buku.tambah', $buku->id)}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('buku.tambah', $buku->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="stok_tersedia">Jumlah Buku yang akan di tambah</label>
@@ -108,13 +115,14 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                     <button type="submit" class="btn btn-primary">Tambah Buku</button>
                 </div>
-            </form>
+                </form>
             </div>
         </div>
     </div>
 
-       {{-- Modal kurang buku --}}
-       <div class="modal fade" id="kurangBuku-{{$buku->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    {{-- Modal kurang buku --}}
+    <div class="modal fade" id="kurangBuku-{{ $buku->id }}" tabindex="-1" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
         <div class="modal-dialog">
             <div class="modal-content">
                 <div class="modal-header">
@@ -122,7 +130,7 @@
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
-                    <form action="{{route('buku.kurang', $buku->id)}}" method="POST" enctype="multipart/form-data">
+                    <form action="{{ route('buku.kurang', $buku->id) }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         <div class="form-group">
                             <label for="stok_tersedia">Jumlah Buku yang akan di kurang</label>
@@ -134,7 +142,7 @@
                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Batal</button>
                     <button type="submit" class="btn btn-primary">Kurang Buku</button>
                 </div>
-            </form>
+                </form>
             </div>
         </div>
     </div>

@@ -4,12 +4,14 @@ namespace App\Http\Controllers;
 
 use Midtrans\Snap;
 use App\Models\Buku;
-use App\Models\DetailPeminjaman;
-use App\Models\Keranjang;
 use Midtrans\Config;
+// use Barryvdh\DomPDF\PDF;
+use PDF;
+use App\Models\Keranjang;
 use App\Models\Peminjaman;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
+use App\Models\DetailPeminjaman;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use RealRashid\SweetAlert\Facades\Alert;
@@ -31,10 +33,10 @@ class PeminjamanController extends Controller
         //     ->get();
 
         $peminjamans = Peminjaman::with(['user', 'buku.tbm'])
-                        ->where('users_id', Auth::user()->id)
-                        ->whereIn('status_peminjaman', ['Belum diverifikasi', 'Buku sudah bisa di ambil'])
-                        ->orderBy('created_at', 'DESC')
-                        ->get();
+            ->where('users_id', Auth::user()->id)
+            ->whereIn('status_peminjaman', ['Belum diverifikasi', 'Buku sudah bisa di ambil'])
+            ->orderBy('created_at', 'DESC')
+            ->get();
 
         return view('pages.anggota.peminjaman.index', [
             'peminjamans' => $peminjamans
@@ -44,11 +46,11 @@ class PeminjamanController extends Controller
     public function pengurus()
     {
         $peminjamans = Peminjaman::with(['user', 'buku'])
-                    ->where('pengurus_id', Auth::user()->id)
-                    ->whereIn('status_peminjaman', ['Belum diverifikasi', 'Buku sudah bisa di ambil'])
-                    ->orderBy('created_at', 'DESC')
-                    ->get();
-                    // dd($peminjamans);
+            ->where('pengurus_id', Auth::user()->id)
+            ->whereIn('status_peminjaman', ['Belum diverifikasi', 'Buku sudah bisa di ambil'])
+            ->orderBy('created_at', 'DESC')
+            ->get();
+        // dd($peminjamans);
         return view('pages.pengurus.peminjaman.index', [
             'peminjamans' => $peminjamans
         ]);
@@ -73,11 +75,10 @@ class PeminjamanController extends Controller
     public function riwayat_anggota()
     {
         $peminjamans = Peminjaman::with(['user', 'buku'])
-                        ->where('users_id', Auth::user()->id)
-                        ->whereIn('status_peminjaman', ['Buku sudah dikembalikan'])
-                        ->orderBy('created_at', 'DESC')
-                        ->get();
-
+            ->where('users_id', Auth::user()->id)
+            ->whereIn('status_peminjaman', ['Buku sudah dikembalikan'])
+            ->orderBy('created_at', 'DESC')
+            ->get();
 
         return view('pages.anggota.peminjaman.riwayat', [
             'peminjamans' => $peminjamans
@@ -97,7 +98,6 @@ class PeminjamanController extends Controller
             'buku' => $buku
         ]);
     }
-
 
     public function pay()
     {
@@ -141,12 +141,6 @@ class PeminjamanController extends Controller
 
         $keranjangs = Keranjang::with(['buku', 'user'])->where('users_id', Auth::user()->id)->get();
 
-        // $jumlahPinjam = Keranjang::where('users_id', Auth::user()->id)->sum('jumlah_pinjam');
-
-        // $kode_peminjaman = 'Kadigi-' . mt_rand(000000, 999999);
-        // if ($request->all() >= 100 ) {
-
-        // }
         foreach ($keranjangs as $keranjang) {
             Peminjaman::create([
                 'users_id' => Auth::user()->id,
@@ -163,7 +157,6 @@ class PeminjamanController extends Controller
             $buku->stok_tersedia = $buku->stok_tersedia - $keranjang->jumlah_pinjam;
             $buku->stok_pinjam = $buku->stok_pinjam + $keranjang->jumlah_pinjam;
             $buku->update();
-
         }
 
         Keranjang::where('users_id', Auth::user()->id)->delete();
@@ -279,13 +272,41 @@ class PeminjamanController extends Controller
         $data = Peminjaman::findOrFail($id);
         $sum = Buku::findOrFail($data->buku_id);
 
-            Buku::where('id', $data->buku_id)->update([
-                'stok_tersedia' => $sum->stok_tersedia + $data->jumlah_pinjam,
-                'stok_pinjam' => $sum->stok_pinjam - $data->jumlah_pinjam,
-            ]);
+        Buku::where('id', $data->buku_id)->update([
+            'stok_tersedia' => $sum->stok_tersedia + $data->jumlah_pinjam,
+            'stok_pinjam' => $sum->stok_pinjam - $data->jumlah_pinjam,
+        ]);
 
         Alert::success('Informasi Pesan!', 'Peminjaman Buku berhasil di Kembalikan');
 
         return back();
+    }
+
+    public function export_peminjaman(Request $request)
+    {
+        if (isset($_GET['cari'])) {
+            $peminjamans = Peminjaman::with(['user', 'buku'])
+                ->where('status_peminjaman', 'Buku sudah bisa di ambil')
+                ->where('pengurus_id', Auth::user()->id)
+                ->whereBetween('tgl_pinjam', [$request->start_date, $request->end_date])->get();
+
+            $pdf = PDF::loadview('pages.pengurus.peminjaman.export', compact('peminjamans'));
+            // return $pdf->download('laporan-peminjaman-buku.pdf');
+            return $pdf->stream();
+        }
+    }
+
+    public function export_pengembalian(Request $request)
+    {
+        if (isset($_GET['cari'])) {
+            $peminjamans = Peminjaman::with(['user', 'buku'])
+                ->where('status_peminjaman', 'Buku sudah dikembalikan')
+                ->where('pengurus_id', Auth::user()->id)
+                ->whereBetween('tgl_kembali', [$request->start_date, $request->end_date])->get();
+
+            $pdf = PDF::loadview('pages.pengurus.peminjaman.export', compact('peminjamans'));
+            return $pdf->download('laporan-pengembalian-buku.pdf');
+            // return $pdf->stream();
+        }
     }
 }

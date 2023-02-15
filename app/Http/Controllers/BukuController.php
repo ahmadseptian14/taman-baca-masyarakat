@@ -139,7 +139,13 @@ class BukuController extends Controller
      */
     public function edit($id)
     {
-        //
+        $buku = Buku::findOrFail($id);
+        $kategoris = Kategori::all();
+
+        return view('pages.pengurus.buku.edit', [
+            'buku' => $buku,
+            'kategoris' => $kategoris
+        ]);
     }
 
     /**
@@ -151,7 +157,30 @@ class BukuController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $users_id = Auth::user()->id;
+        // $tbm_id = Tbm::where('users_id', Auth::user()->id)->get();
+
+        $data = $request->all();
+
+
+        if ($request->hasFile('foto')) {
+            $data['users_id'] = $users_id;
+            $data['foto'] = $request->file('foto')->store('assets/buku', 'public');
+
+            $item = Buku::findOrFail($id);
+            $item->update($data);
+            Alert::success('Berhasil', 'Buku berhasil di update');
+        } else {
+            $data['users_id'] = $users_id;
+            // $data['foto'] = $request->file('foto')->store('assets/buku', 'public');
+
+            $item = Buku::findOrFail($id);
+            $item->update($data);
+            Alert::success('Berhasil', 'Buku berhasil di update');
+
+        }
+
+        return redirect()->route('buku.pengurus');
     }
 
     /**

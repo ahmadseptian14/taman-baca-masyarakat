@@ -37,7 +37,7 @@ Route::prefix('list-buku')->middleware(['auth', 'anggota'])->group(function () {
     Route::put('/update-foto', [UserController::class, 'update_foto'])->name('user.update-foto');
 
     // Buku
-    Route::get('/', [BukuController::class, 'buku_anggota'])->name('buku.anggota');
+    Route::get('/', [BukuController::class, 'buku_anggota'])->name('buku.anggota')->middleware('verified');
 
     // Tbm
     Route::get('/tbm-anggota', [TbmController::class, 'tbm_anggota'])->name('tbm.anggota');
@@ -77,6 +77,8 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/buku', [BukuController::class, 'index'])->name('buku.index');
     Route::get('/buku-pengurus', [BukuController::class, 'buku_pengurus'])->name('buku.pengurus');
     Route::get('/tambah/buku', [BukuController::class, 'create'])->name('buku.create');
+    Route::get('/edit-buku/{id}', [BukuController::class, 'edit'])->name('buku.edit');
+    Route::put('/edit-buku/{id}', [BukuController::class, 'update'])->name('buku.update');
     Route::post('/tambah-buku', [BukuController::class, 'store'])->name('buku.store');
     Route::delete('/buku/{id}', [BukuController::class, 'destroy'])->name('buku.destroy');
     Route::post('/tambah-buku/{id}', [BukuController::class, 'tambah'])->name('buku.tambah');
@@ -97,6 +99,18 @@ Route::prefix('admin')->middleware(['auth', 'admin'])->group(function () {
     Route::get('/peminjaman-edit/{id}', [PeminjamanController::class, 'edit'])->name('peminjaman.edit');
     Route::put('/update-peminjaman/{id}', [PeminjamanController::class, 'update'])->name('peminjaman.update');
     Route::delete('/pinjam/{id}', [PeminjamanController::class, 'retur_buku'])->name('peminjaman.retur');
+    Route::get('/export-peminjaman', [PeminjamanController::class, 'export_peminjaman'])->name('peminjaman.export-peminjaman');
+    Route::get('/export-pengembalian', [PeminjamanController::class, 'export_pengembalian'])->name('peminjaman.export-pengembalian');
+
+
+
+
+
+
+
+
+
+
 });
 
 
